@@ -3,10 +3,11 @@
  */
 import React, { JSX } from 'react';
 import Head from 'next/head';
-import { ImageField, Placeholder, Field, DesignLibrary, Page } from '@sitecore-content-sdk/nextjs';
+import { Placeholder, Field, Page, ImageField } from '@sitecore-content-sdk/nextjs';
 import Scripts from 'src/Scripts';
 import SitecoreStyles from 'src/components/content-sdk/SitecoreStyles';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { DesignLibraryLayout } from './DesignLibraryLayout';
+import { useRouter } from 'next/router';
 
 interface LayoutProps {
   page: Page;
@@ -20,19 +21,14 @@ interface RouteFields {
   metadataDescription?: Field;
   pageSummary?: Field;
   ogImage?: ImageField;
-  Category?: {
-    fields: {
-      Title: Field;
-    };
-  }
 }
 
 const Layout = ({ page }: LayoutProps): JSX.Element => {
+  const router = useRouter();
   const { layout, mode } = page;
   const { route } = layout.sitecore;
   const fields = route?.fields as RouteFields;
   const mainClassPageEditing = mode.isEditing ? 'editing-mode' : 'prod-mode';
-  const importMapDynamic = () => import('.sitecore/import-map');
 
   const metaDescription =
     fields?.metadataDescription?.value?.toString() || fields?.pageSummary?.value?.toString() || '';
@@ -41,13 +37,8 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
   const ogImage = fields?.ogImage?.value?.src;
   const ogDescription =
     fields?.metadataDescription?.value?.toString() || fields?.pageSummary?.value?.toString() || '';
-
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const queryString = searchParams.toString();
-  const relativeUrl = queryString ? `${pathname}?${queryString}` : pathname;
-  const articleCategory = fields?.Category?.fields?.Title?.value?.toString() || '';
+  const currentPath = router.asPath;
+  const ogUrl = `${process.env.NEXT_PUBLIC_BASE_URL || ''}${currentPath}`;
 
   return (
     <>
@@ -62,14 +53,15 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
         {ogTitle && <meta property="og:title" content={ogTitle} />}
         {ogDescription && <meta property="og:description " content={ogDescription} />}
         {ogImage && <meta property="og:image" content={ogImage} />}
-        <meta property="og:url" content={relativeUrl.replace('_site_gridwell', '')} key="og:url" />
-        {articleCategory && <meta property="article_category" content={articleCategory} />}
+        {ogUrl && <meta property="og:url" content={ogUrl} />}
+        {/* Custom meta tag for current relative path - used in Search */}
+        {currentPath && <meta name="page-path" content={currentPath} />}
       </Head>
 
       {/* root placeholder for the app, which we add components to using route data */}
       <div className={mainClassPageEditing}>
         {mode.isDesignLibrary ? (
-          <DesignLibrary loadImportMap={importMapDynamic} />
+          <DesignLibraryLayout />
         ) : (
           <>
             <header>

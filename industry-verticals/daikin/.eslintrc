@@ -23,8 +23,7 @@
         "caughtErrorsIgnorePattern": "."
       }
     ],
-    "@typescript-eslint/no-explicit-any": "off",
-    "jsx-quotes": ["error", "prefer-double"],
-    "prettier/prettier": "off",
+    "@typescript-eslint/no-explicit-any": "error",
+    "jsx-quotes": ["error", "prefer-double"]
   }
 }

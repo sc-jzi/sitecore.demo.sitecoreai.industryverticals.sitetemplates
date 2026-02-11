@@ -1,5 +1,4 @@
 const path = require('path');
-const SassAlias = require('sass-alias');
 
 /**
  * @type {import('next').NextConfig}
@@ -11,7 +10,7 @@ const nextConfig = {
   i18n: {
     // These are all the locales you want to support in your application.
     // These should generally match (or at least be a subset of) those in Sitecore.
-    locales: ['en'],
+    locales: ['en', 'fr-FR', 'es-ES'],
     // This is the locale that will be used when visiting a non-locale
     // prefixed path e.g. `/about`.
     defaultLocale: process.env.DEFAULT_LANGUAGE || process.env.NEXT_PUBLIC_DEFAULT_LANGUAGE || 'en',
@@ -27,6 +26,7 @@ const nextConfig = {
   // can be served from the Next.js Image Optimization API
   // see https://nextjs.org/docs/app/api-reference/components/image#remotepatterns
   images: {
+    dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -40,21 +40,15 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'starter-*.**',
+        hostname: 'starter-verticals.sitecoresandbox.cloud',
         port: '',
       },
       {
         protocol: 'https',
-        hostname: 'picsum*.**',
-        port: '',
-      },
-      {
-        protocol: 'https',
-        hostname: 'placehold*.**',
+        hostname: 'placehold.co',
         port: '',
       },
     ],
-    dangerouslyAllowSVG: true,
   },
 
   async rewrites() {
@@ -72,7 +66,7 @@ const nextConfig = {
       // sitemap route
       {
         source: '/sitemap:id([\\w-]{0,}).xml',
-        destination: '/api/sitemap'
+        destination: '/api/sitemap',
       },
       // feaas api route
       {
@@ -104,17 +98,6 @@ const nextConfig = {
     }
 
     return config;
-  },
-
-  // Add sass settings for SXA themes and styles
-  sassOptions: {
-    importer: new SassAlias({
-      '@globals': path.join(process.cwd(), './src/assets', 'globals'),
-      '@fontawesome': path.join(process.cwd(), './node_modules', 'font-awesome'),
-    }).getImporter(),
-    // temporary measure until new versions of bootstrap and font-awesome released
-    quietDeps: true,    
-    silenceDeprecations: ["import", "legacy-js-api"],
   },
 };
 

@@ -4,59 +4,68 @@ import { BYOCWrapper, NextjsContentSdkComponent, FEaaSWrapper } from '@sitecore-
 import { Form } from '@sitecore-content-sdk/nextjs';
 
 // end of built-in components
-import * as progress from 'src/components/ui/progress';
-import * as card from 'src/components/ui/card';
-import * as button from 'src/components/ui/button';
-import * as badge from 'src/components/ui/badge';
-import * as SuggestionBlock from 'src/components/search/SuggestionBlock';
-import * as Spinner from 'src/components/search/Spinner';
-import * as SortOrder from 'src/components/search/SortOrder';
-import * as SearchResultsComponent from 'src/components/search/SearchResultsComponent';
-import * as SearchResults from 'src/components/search/SearchResults';
-import * as SearchPagination from 'src/components/search/SearchPagination';
-import * as SearchFacets from 'src/components/search/SearchFacets';
-import * as ResultsPerPage from 'src/components/search/ResultsPerPage';
-import * as QuestionsAnswers from 'src/components/search/QuestionsAnswers';
-import * as QueryResultsSummary from 'src/components/search/QueryResultsSummary';
-import * as PreviewSearch from 'src/components/search/PreviewSearch';
-import * as HomeHighlighted from 'src/components/search/HomeHighlighted';
-import * as HighlightedArticles from 'src/components/search/HighlightedArticles';
-import * as Filter from 'src/components/search/Filter';
-import * as CardViewSwitcher from 'src/components/search/CardViewSwitcher';
-import * as ArticleRecommender from 'src/components/search/ArticleRecommender';
-import * as ArticleHorizontalCard from 'src/components/search/ArticleHorizontalCard';
-import * as ArticleCard from 'src/components/search/ArticleCard';
+import * as Title from 'src/components/title/Title';
+import * as ThemeEditor from 'src/components/theme-editor/ThemeEditor';
+import * as SocialFollow from 'src/components/social-follow/SocialFollow';
+import * as SelectedArticles from 'src/components/selected-articles/SelectedArticles';
+import * as SectionWrapper from 'src/components/section-wrapper/SectionWrapper';
+import * as SearchResults from 'src/components/search-results/SearchResults';
+import * as RowSplitter from 'src/components/row-splitter/RowSplitter';
+import * as RichText from 'src/components/rich-text/RichText';
+import * as Promo from 'src/components/promo/Promo';
 import * as PartialDesignDynamicPlaceholder from 'src/components/partial-design-dynamic-placeholder/PartialDesignDynamicPlaceholder';
-import * as QuickActions from 'src/components/page-content/QuickActions';
-import * as Promo from 'src/components/page-content/Promo';
-import * as EnergyConservationTips from 'src/components/page-content/EnergyConservationTips';
-import * as Header from 'src/components/navigation/Header';
-import * as Footer from 'src/components/navigation/Footer';
-import * as utils from 'src/components/lib/utils';
-import * as chartUtils from 'src/components/lib/chartUtils';
-import * as SystemWideDemandChart from 'src/components/grid/SystemWideDemandChart';
-import * as SupplyAndDemandChart from 'src/components/grid/SupplyAndDemandChart';
-import * as GridOverview from 'src/components/grid/GridOverview';
-import * as GridConditions from 'src/components/grid/GridConditions';
-import * as AreaChart from 'src/components/charts/AreaChart';
-import * as HeroBanner from 'src/components/banners/HeroBanner';
-import * as LatestArticles from 'src/components/articles/LatestArticles';
-import * as ArticleSearch from 'src/components/articles/ArticleSearch';
-import * as ArticleDetail from 'src/components/articles/ArticleDetail';
+import * as PageContent from 'src/components/page-content/PageContent';
+import * as SuggestionBlock from 'src/components/non-sitecore/search/SuggestionBlock';
+import * as Spinner from 'src/components/non-sitecore/search/Spinner';
+import * as SortOrder from 'src/components/non-sitecore/search/SortOrder';
+import * as SearchResultsComponent from 'src/components/non-sitecore/search/SearchResultsComponent';
+import * as SearchPagination from 'src/components/non-sitecore/search/SearchPagination';
+import * as SearchFacets from 'src/components/non-sitecore/search/SearchFacets';
+import * as ResultsPerPage from 'src/components/non-sitecore/search/ResultsPerPage';
+import * as QuestionsAnswers from 'src/components/non-sitecore/search/QuestionsAnswers';
+import * as QueryResultsSummary from 'src/components/non-sitecore/search/QueryResultsSummary';
+import * as PreviewSearch from 'src/components/non-sitecore/search/PreviewSearch';
+import * as HomeHighlighted from 'src/components/non-sitecore/search/HomeHighlighted';
+import * as CardViewSwitcher from 'src/components/non-sitecore/search/CardViewSwitcher';
+import * as ArticleHorizontalCard from 'src/components/non-sitecore/search/ArticleHorizontalCard';
+import * as ArticleCard from 'src/components/non-sitecore/search/ArticleCard';
+import * as Navigation from 'src/components/navigation/Navigation';
+import * as LinkList from 'src/components/link-list/LinkList';
+import * as Image from 'src/components/image/Image';
+import * as HeroBanner from 'src/components/hero-banner/HeroBanner';
+import * as Header from 'src/components/header/Header';
+import * as GridStatusGauge from 'src/components/gridstatusgauge/GridStatusGauge';
+import * as GridDemand from 'src/components/grid-demand/GridDemand';
+import * as gridChartData from 'src/components/grid-demand/gridChartData';
+import * as gridData from 'src/components/grid-conditions/gridData';
+import * as GridConditions from 'src/components/grid-conditions/GridConditions';
+import * as Footer from 'src/components/footer/Footer';
+import * as Features from 'src/components/features/Features';
+import * as ContentBlock from 'src/components/content-block/ContentBlock';
+import * as Container from 'src/components/container/Container';
+import * as ColumnSplitter from 'src/components/column-splitter/ColumnSplitter';
+import * as ArticleListing from 'src/components/article-listing/ArticleListing';
+import * as ArticleDetails from 'src/components/article-details/ArticleDetails';
 
 export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['BYOCWrapper', BYOCWrapper],
   ['FEaaSWrapper', FEaaSWrapper],
   ['Form', Form],
-  ['progress', { ...progress }],
-  ['card', { ...card }],
-  ['button', { ...button }],
-  ['badge', { ...badge }],
+  ['Title', { ...Title }],
+  ['ThemeEditor', { ...ThemeEditor }],
+  ['SocialFollow', { ...SocialFollow }],
+  ['SelectedArticles', { ...SelectedArticles }],
+  ['SectionWrapper', { ...SectionWrapper }],
+  ['SearchResults', { ...SearchResults }],
+  ['RowSplitter', { ...RowSplitter }],
+  ['RichText', { ...RichText }],
+  ['Promo', { ...Promo }],
+  ['PartialDesignDynamicPlaceholder', { ...PartialDesignDynamicPlaceholder }],
+  ['PageContent', { ...PageContent }],
   ['SuggestionBlock', { ...SuggestionBlock }],
   ['Spinner', { ...Spinner }],
   ['SortOrder', { ...SortOrder }],
   ['SearchResultsComponent', { ...SearchResultsComponent }],
-  ['SearchResults', { ...SearchResults }],
   ['SearchPagination', { ...SearchPagination }],
   ['SearchFacets', { ...SearchFacets }],
   ['ResultsPerPage', { ...ResultsPerPage }],
@@ -64,29 +73,26 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['QueryResultsSummary', { ...QueryResultsSummary }],
   ['PreviewSearch', { ...PreviewSearch }],
   ['HomeHighlighted', { ...HomeHighlighted }],
-  ['HighlightedArticles', { ...HighlightedArticles }],
-  ['Filter', { ...Filter }],
   ['CardViewSwitcher', { ...CardViewSwitcher }],
-  ['ArticleRecommender', { ...ArticleRecommender }],
   ['ArticleHorizontalCard', { ...ArticleHorizontalCard }],
   ['ArticleCard', { ...ArticleCard }],
-  ['PartialDesignDynamicPlaceholder', { ...PartialDesignDynamicPlaceholder }],
-  ['QuickActions', { ...QuickActions }],
-  ['Promo', { ...Promo }],
-  ['EnergyConservationTips', { ...EnergyConservationTips }],
-  ['Header', { ...Header }],
-  ['Footer', { ...Footer }],
-  ['utils', { ...utils }],
-  ['chartUtils', { ...chartUtils }],
-  ['SystemWideDemandChart', { ...SystemWideDemandChart }],
-  ['SupplyAndDemandChart', { ...SupplyAndDemandChart }],
-  ['GridOverview', { ...GridOverview }],
-  ['GridConditions', { ...GridConditions }],
-  ['AreaChart', { ...AreaChart }],
+  ['Navigation', { ...Navigation, componentType: 'client' }],
+  ['LinkList', { ...LinkList }],
+  ['Image', { ...Image }],
   ['HeroBanner', { ...HeroBanner }],
-  ['LatestArticles', { ...LatestArticles }],
-  ['ArticleSearch', { ...ArticleSearch }],
-  ['ArticleDetail', { ...ArticleDetail }],
+  ['Header', { ...Header, componentType: 'client' }],
+  ['GridStatusGauge', { ...GridStatusGauge }],
+  ['GridDemand', { ...GridDemand }],
+  ['gridChartData', { ...gridChartData }],
+  ['gridData', { ...gridData }],
+  ['GridConditions', { ...GridConditions }],
+  ['Footer', { ...Footer }],
+  ['Features', { ...Features, componentType: 'client' }],
+  ['ContentBlock', { ...ContentBlock }],
+  ['Container', { ...Container }],
+  ['ColumnSplitter', { ...ColumnSplitter }],
+  ['ArticleListing', { ...ArticleListing }],
+  ['ArticleDetails', { ...ArticleDetails }],
 ]);
 
 export default componentMap;

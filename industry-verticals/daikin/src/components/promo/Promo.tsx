@@ -58,6 +58,40 @@ export const Default = (props: PromoProps): JSX.Element => {
   );
 };
 
+
+export const ImageRight = (props: PromoProps): JSX.Element => {
+  const id = props.params.RenderingIdentifier;
+  const sxaStyles = `${props.params?.styles || ''}`;
+  const isPromoReversed = sxaStyles?.includes(LayoutStyles.Reversed) ? 'lg:order-last' : '';
+
+  return (
+    <div className={`${sxaStyles}`} id={id}>
+      <div className="container">
+        <div className="my-12 grid overflow-hidden rounded-xl border shadow transition-shadow hover:shadow-lg lg:grid-cols-2">
+          <div className="flex flex-col justify-center p-6 lg:p-20">
+            <span className="text-accent-dark mb-1 text-sm font-bold">
+              <ContentSdkText field={props.fields.PromoSubTitle} />
+            </span>
+            <h4>
+              <ContentSdkText field={props.fields.PromoTitle} />
+            </h4>
+            <div className="mt-4 mb-6">
+              <ContentSdkRichText field={props.fields.PromoDescription} />
+            </div>
+            <ContentSdkLink field={props.fields.PromoMoreInfo} className="main-btn" />
+          </div>
+          <div className={`relative flex items-stretch ${isPromoReversed}`}>
+            <ContentSdkImage
+              field={props.fields.PromoImageOne}
+              className="inset-0 h-full w-full object-cover max-lg:h-64 lg:absolute"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const Stacked = (props: PromoProps): JSX.Element => {
   const id = props.params.RenderingIdentifier;
   const sxaStyles = `${props.params?.styles || ''}`;

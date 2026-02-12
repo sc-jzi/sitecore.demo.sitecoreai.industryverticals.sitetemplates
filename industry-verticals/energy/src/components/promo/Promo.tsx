@@ -41,8 +41,9 @@ export const Default = (props: PromoProps): JSX.Element => {
             />
           </div>
           <div className="flex flex-col justify-center p-6 lg:p-20">
-            <span className="text-accent-dark mb-1 text-sm font-bold">
+            <span className="mb-1 text-sm font-bold text-[#fff]">
               <ContentSdkText field={props.fields.PromoSubTitle} />
+              <p>This is osme added text</p>
             </span>
             <h4>
               <ContentSdkText field={props.fields.PromoTitle} />

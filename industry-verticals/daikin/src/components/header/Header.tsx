@@ -1,5 +1,3 @@
-'use client';
-
 import React, { JSX, useState, useEffect } from 'react';
 import { ComponentProps } from '@/lib/component-props';
 import { Placeholder } from '@sitecore-content-sdk/nextjs';
@@ -8,6 +6,15 @@ import { Menu, Search, X } from 'lucide-react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import PreviewSearch from '../non-sitecore/search/PreviewSearch';
 import { PREVIEW_WIDGET_ID } from '@/constants/search';
+import Link from "next/link";
+
+const utilityLinks = [
+  { label: "Rentals", href: "/rentals" },
+  { label: "Training", href: "/training" },
+  { label: "Careers", href: "/careers" },
+  { label: "News", href: "/news" },
+  { label: "About Us", href: "/about-us" },
+];
 
 export type HeaderProps = ComponentProps & {
   params: { [key: string]: string };
@@ -26,9 +33,30 @@ export const Default = (props: HeaderProps): JSX.Element => {
 
   return (
     <div className={`component header bg-background border-b ${styles}`} id={id}>
+      <div className="bg-[#009fde] text-background">
+        <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-8 text-xs">
+          <div className="flex items-center gap-4">
+            {utilityLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="hover:text-daikin-light/80 transition-colors hidden sm:inline-block"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+          <Link
+            href="/daikin-locators/rep-locator"
+            className="font-semibold hover:text-daikin-light/80 transition-colors"
+          >
+            Find My Rep
+          </Link>
+        </div>
+      </div>
       <div className="container flex items-center gap-4 py-4 lg:gap-6">
         <div className="header-block *:shrink max-lg:w-full max-lg:justify-between lg:shrink-0">
-          <Placeholder name={`header-left-${DynamicPlaceholderId}`} rendering={props.rendering} />
+          <img src="https://www.daikinapplied.com/App_Themes/SiteTheme/Global/assets/img/daikin-logo.png" alt="Daikin logo" id="logo" className="w-50" />
         </div>
         <div className="hidden! lg:flex! lg:shrink lg:basis-full">
           <Placeholder name={`header-nav-${DynamicPlaceholderId}`} rendering={props.rendering} />

@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState, useRef } from 'react';
 import { Link, TextField, useSitecore } from '@sitecore-content-sdk/nextjs';
 import { ComponentProps } from 'lib/component-props';
@@ -65,14 +63,14 @@ const NavigationListItem: React.FC<NavigationListItemProps> = ({
 
   const childrenMarkup = hasChildren
     ? fields.Children!.map((child) => (
-        <NavigationListItem
-          key={child.Id}
-          fields={child}
-          handleClick={clickHandler}
-          isSimpleLayout={isSimpleLayout}
-          logoSrc={logoSrc}
-        />
-      ))
+      <NavigationListItem
+        key={child.Id}
+        fields={child}
+        handleClick={clickHandler}
+        isSimpleLayout={isSimpleLayout}
+        logoSrc={logoSrc}
+      />
+    ))
     : null;
 
   return (
@@ -110,7 +108,7 @@ const NavigationListItem: React.FC<NavigationListItemProps> = ({
               </button>
             </DrawerTrigger>
 
-            <DrawerContent className="bg-background-accent flex flex-col p-5 max-lg:w-xl! max-lg:max-w-full!">
+            <DrawerContent className="bg-[#eaedf2] flex flex-col p-5 max-lg:w-xl! max-lg:max-w-full!">
               <DrawerClose asChild className="hidden self-end lg:block">
                 <button aria-label="Close submenu">
                   <X className="size-5" />
@@ -122,9 +120,7 @@ const NavigationListItem: React.FC<NavigationListItemProps> = ({
                 </button>
               </DrawerClose>
               <div className="px-12">
-                {logoSrc && (
-                  <img src={logoSrc} alt={fields.DisplayName} className="mt-14 mb-18 h-auto w-36" />
-                )}
+                <img alt="Daikin logo" id="logo" src="https://www.daikinapplied.com/App_Themes/SiteTheme/Global/assets/img/daikin-logo.png" className="w-50" />
 
                 <div className="text-foreground-light mb-6 text-sm font-medium">
                   {getLinkContent(fields, logoSrc)}

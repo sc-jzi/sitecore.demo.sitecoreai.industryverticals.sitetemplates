@@ -32,6 +32,7 @@ import * as ArticleCard from 'src/components/non-sitecore/search/ArticleCard';
 import * as Navigation from 'src/components/navigation/Navigation';
 import * as LinkList from 'src/components/link-list/LinkList';
 import * as Image from 'src/components/image/Image';
+import * as HeroCarousel from 'src/components/hero-carousel/HeroCarousel';
 import * as HeroBanner from 'src/components/hero-banner/HeroBanner';
 import * as Header from 'src/components/header/Header';
 import * as GridStatusGauge from 'src/components/gridstatusgauge/GridStatusGauge';
@@ -76,11 +77,12 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['CardViewSwitcher', { ...CardViewSwitcher }],
   ['ArticleHorizontalCard', { ...ArticleHorizontalCard }],
   ['ArticleCard', { ...ArticleCard }],
-  ['Navigation', { ...Navigation, componentType: 'client' }],
+  ['Navigation', { ...Navigation }],
   ['LinkList', { ...LinkList }],
   ['Image', { ...Image }],
+  ['HeroCarousel', { ...HeroCarousel }],
   ['HeroBanner', { ...HeroBanner }],
-  ['Header', { ...Header, componentType: 'client' }],
+  ['Header', { ...Header }],
   ['GridStatusGauge', { ...GridStatusGauge }],
   ['GridDemand', { ...GridDemand }],
   ['gridChartData', { ...gridChartData }],

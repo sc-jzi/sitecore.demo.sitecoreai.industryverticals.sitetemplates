@@ -10,7 +10,6 @@ import {
   Text as ContentSdkText,
   Link as ContentSdkLink,
   RichText,
-  NextImage as ContentSdkImage,
 } from '@sitecore-content-sdk/nextjs';
 
 interface Fields {
@@ -64,16 +63,16 @@ const Footer = (props: FooterProps): JSX.Element => {
   ];
 
   return (
-    <div className={`bg-foreground py-12 text-white ${sxaStyles}`} id={id}>
+    <div className={`bg-[#f6f7fa] py-12 text-[#221f20] ${sxaStyles}`} id={id}>
       <div className="container mx-auto">
         {/* content section */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* footer content data */}
           <div>
             <div className="mb-4 flex max-w-40 space-x-2">
-              <ContentSdkImage field={props.fields.Logo} width={200} />
+              <img src="https://www.daikinapplied.com/App_Themes/SiteTheme/Global/assets/img/daikin-logo-footer.png" alt="Daikin logo" id="footer-logo" />
             </div>
-            <div className="**:text-foreground-secondary mb-4">
+            <div className="**:text-[#221f20] mb-4">
               <RichText field={props.fields.Description} />
             </div>
             <Placeholder name={phKeyFour} rendering={props.rendering} />
@@ -83,37 +82,32 @@ const Footer = (props: FooterProps): JSX.Element => {
           {sections.map(({ key, title, content }) => (
             <div key={key}>
               <div className="mb-4 text-lg font-semibold">{title}</div>
-              <div className="text-foreground-secondary">{content}</div>
+              <div className="text-[#221f20]-secondary">{content}</div>
             </div>
           ))}
         </div>
-
-        {/* seperator */}
-        <hr className="border-foreground-light my-8" />
-
-        {/* copyright section */}
-        <div className="flex flex-col items-center justify-between md:flex-row">
-          <p className="text-foreground-secondary order-2 mt-8 text-sm md:order-1 md:mt-0">
-            <ContentSdkText field={props.fields.CopyrightText} />
-          </p>
-          <div className="mt-4 grid grid-cols-2 justify-between gap-6 md:order-2 md:mt-0 md:flex">
-            <ContentSdkLink
-              className="text-foreground-secondary hover:text-background text-sm"
-              field={props.fields.PolicyText}
-            />
-            <ContentSdkLink
-              className="text-foreground-secondary hover:text-background text-sm"
-              field={props.fields.TermsText}
-            />
-            <ContentSdkLink
-              className="text-foreground-secondary hover:text-background text-sm"
-              field={props.fields.CookiesText}
-            />
-            <ContentSdkLink
-              className="text-foreground-secondary hover:text-background text-sm"
-              field={props.fields.ContactText}
-            />
-          </div>
+      </div>
+      <div className="bg-[#009fde] mt-4 p-8 flex flex-col items-center justify-between md:flex-row">
+        <p className="text-white order-2 mt-8 text-sm md:order-1 md:mt-0">
+          <ContentSdkText field={props.fields.CopyrightText} />
+        </p>
+        <div className="mt-4 grid grid-cols-2 justify-between gap-6 md:order-2 md:mt-0 md:flex">
+          <ContentSdkLink
+            className="text-white hover:text-background hover:underline text-sm"
+            field={props.fields.PolicyText}
+          />
+          <ContentSdkLink
+            className="text-white hover:text-background hover:underline text-sm"
+            field={props.fields.TermsText}
+          />
+          <ContentSdkLink
+            className="text-white hover:text-background hover:underline text-sm"
+            field={props.fields.CookiesText}
+          />
+          <ContentSdkLink
+            className="text-white hover:text-background hover:underline text-sm"
+            field={props.fields.ContactText}
+          />
         </div>
       </div>
     </div>

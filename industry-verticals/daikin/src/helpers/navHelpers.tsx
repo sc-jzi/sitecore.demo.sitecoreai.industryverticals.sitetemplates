@@ -20,7 +20,7 @@ export const getLinkContent = (fields: NavItemFields, logoSrc?: string): JSX.Ele
     const altText =
       fields.NavigationTitle?.value || fields.Title?.value || fields.DisplayName || '';
     return <img src={logoSrc} alt={String(altText)} className="h-auto w-36" />;
-  }
+  } 
 
   const textField = fields.NavigationTitle || fields.Title;
   if (textField) {

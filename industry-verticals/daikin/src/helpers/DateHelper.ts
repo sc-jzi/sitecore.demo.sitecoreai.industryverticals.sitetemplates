@@ -3,5 +3,5 @@ export const newsDateFormatter = (date: Date | null): string | undefined =>
     weekday: 'short',
     year: 'numeric',
     month: 'long',
-    day: 'numeric',
+    day: 'numeric', 
   });

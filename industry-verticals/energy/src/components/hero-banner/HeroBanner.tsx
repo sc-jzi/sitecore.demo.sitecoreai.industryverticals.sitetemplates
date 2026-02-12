@@ -2,7 +2,7 @@ import {
   Field,
   ImageField,
   LinkField,
-  NextImage as ContentSdkImage,
+  Image as ContentSdkImage,
   Text as ContentSdkText,
   RichText as ContentSdkRichText,
   useSitecore,

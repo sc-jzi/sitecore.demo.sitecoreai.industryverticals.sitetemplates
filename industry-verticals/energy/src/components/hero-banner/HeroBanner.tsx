@@ -56,7 +56,7 @@ export const Default = ({ params, fields }: HeroBannerProps) => {
             <source src={fields.Video?.value?.src} type="video/webm" />
           </video>
         ) : (
-          <ContentSdkImage field={fields.Image} className="h-full w-full object-cover" />
+          <ContentSdkImage field={fields.Image} className="h-full w-full object-cover" unoptimized />
         )}
       </div>
       {/* Gradient Overlay using primary color */}

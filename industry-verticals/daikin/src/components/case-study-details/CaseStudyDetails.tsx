@@ -33,7 +33,7 @@ export const Default = ({ params, fields, rendering }: CaseStudyDetailsProps) =>
 
           <div className="flex gap-4">
             <SocialShare
-              url='#'
+              url="#"
               title={fields?.Title?.value || ''}
             />
             <button className="simple-btn">

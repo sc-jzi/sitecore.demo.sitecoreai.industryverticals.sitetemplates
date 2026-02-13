@@ -21,6 +21,7 @@ interface RouteFields {
   metadataDescription?: Field;
   pageSummary?: Field;
   ogImage?: ImageField;
+  CaseStudyType: Field;
 }
 
 const Layout = ({ page }: LayoutProps): JSX.Element => {
@@ -34,6 +35,7 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
     fields?.metadataDescription?.value?.toString() || fields?.pageSummary?.value?.toString() || '';
   const metaKeywords = fields?.metadataKeywords?.value?.toString() || '';
   const ogTitle = fields?.metadataTitle?.value?.toString() || 'Page';
+  const caseStudyType = fields?.CaseStudyType?.value?.toString();
   const ogImage = fields?.ogImage?.value?.src;
   const ogDescription =
     fields?.metadataDescription?.value?.toString() || fields?.pageSummary?.value?.toString() || '';
@@ -49,6 +51,7 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
         <link rel="icon" href="/favicon.ico" />
         {metaDescription && <meta name="description" content={metaDescription} />}
         {metaKeywords && <meta name="keywords" content={metaKeywords} />}
+        {caseStudyType && <meta name="CaseStudyType" content={caseStudyType} />}
         <link rel="icon" href="/favicon.ico" />
         {ogTitle && <meta property="og:title" content={ogTitle} />}
         {ogDescription && <meta property="og:description " content={ogDescription} />}

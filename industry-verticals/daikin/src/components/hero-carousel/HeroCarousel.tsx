@@ -32,7 +32,6 @@ export type HeroCarouselProps = ComponentProps & {
   };
 };
 
-
 export const HeroCarousel = (props: HeroCarouselProps): JSX.Element => {
   const [current, setCurrent] = useState(0);
 
@@ -59,8 +58,6 @@ export const HeroCarousel = (props: HeroCarouselProps): JSX.Element => {
         >
           <NextImage field={slide.fields.Image} className="w-full min-w-full" />
           <div className="absolute inset-0 bg-[#221f20]/60" />
-          <p>Index: {index}</p>
-          <p>Current: {current}</p>
         </div>
       ))}
 
@@ -82,7 +79,6 @@ export const HeroCarousel = (props: HeroCarouselProps): JSX.Element => {
         </div>
       </div>
 
-      {/* Controls */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4">
         <button
           type="button"

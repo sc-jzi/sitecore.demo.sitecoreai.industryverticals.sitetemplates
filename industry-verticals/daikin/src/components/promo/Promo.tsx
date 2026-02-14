@@ -11,7 +11,6 @@ import {
 } from '@sitecore-content-sdk/nextjs';
 import { ComponentProps } from 'lib/component-props';
 import { LayoutStyles } from '@/types/styleFlags';
-import { background } from 'storybook/internal/theming';
 
 interface Fields {
   PromoImageOne: ImageField;

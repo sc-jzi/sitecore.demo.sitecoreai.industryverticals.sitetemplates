@@ -13,13 +13,14 @@ import React from 'react';
 import Head from 'next/head';
 import { faFacebookF, faInstagram, faLinkedinIn, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ArrowRight, Share2, ChevronLeft, Calendar, User, LoaderCircle, ChevronRight, ArrowLeft, X, Menu, Search, Activity, Thermometer, TrendingDown, TrendingUp, Unplug, Zap, Loader2, Bookmark } from 'lucide-react';
+import { ArrowRight, Share2, ChevronLeft, Calendar, User, LoaderCircle, ChevronRight, ArrowLeft, X, Menu, Search, Activity, Thermometer, TrendingDown, TrendingUp, Unplug, Zap, Bookmark, Loader2 } from 'lucide-react';
 import Link_a258c208ba01265ca0aa9c7abae745cc7141aa63 from 'next/link';
 import { useI18n } from 'next-localization';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import QuestionsAnswers from 'src/components/non-sitecore/search/QuestionsAnswers';
 import SearchResultsWidget from 'src/components/non-sitecore/search/SearchResultsComponent';
 import { SEARCH_WIDGET_ID, HIGHLIGHTED_ARTICLES_RFKID, DEFAULT_IMG_URL, PREVIEW_WIDGET_ID, HOMEHIGHLIGHTED_WIDGET_ID } from '@/constants/search';
+import HomeHighlighted from 'src/components/non-sitecore/search/HomeHighlighted';
 import { LayoutStyles } from '@/types/styleFlags';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui/dropdown-menu';
 import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, PinterestIcon, PinterestShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
@@ -30,7 +31,6 @@ import { newsDateFormatter } from '@/helpers/dateHelper';
 import { usePreviewSearchActions, useSearchResultsActions, WidgetDataType, useSearchResults, widget, useQuestions, usePreviewSearch, FilterEqual } from '@sitecore-search/react';
 import { PreviewSearch, SortSelect, Pagination, AccordionFacets, FacetItem, RangeFacet, SearchResultsAccordionFacets, SearchResultsFacetValueRange, Select, ArticleCard, CardViewSwitcher as CardViewSwitcher_b6c381477cbf12fc0dc4f9aeb9e8e41e943b6ea7 } from '@sitecore-search/ui';
 import { GridIcon, ListBulletIcon, CheckIcon, ChevronDownIcon } from '@radix-ui/react-icons';
-import HomeHighlighted from 'src/components/non-sitecore/search/HomeHighlighted';
 import Spinner from 'src/components/non-sitecore/search/Spinner';
 import ArticleItemCard from 'src/components/non-sitecore/search/ArticleCard';
 import SortOrder from 'src/components/non-sitecore/search/SortOrder';
@@ -62,11 +62,11 @@ import * as FEAAS from '@sitecore-feaas/clientside/react';
 import nextConfig from 'next.config';
 import { pageView } from '@sitecore-cloudsdk/events/browser';
 import config from 'sitecore.config';
+import SocialShare from 'src/components/non-sitecore/SocialShare';
 import { getArticlesCountsByCategory } from '@/helpers/articleHelpers';
 import InfiniteScroll from '@/shadcn/components/ui/infiniteScroll';
 import ArticleCard_2b7ae43f25929cd39fbab4486697d9aba5387223 from 'src/components/non-sitecore/ArticleCard';
 import { ParentPathLink } from 'src/components/non-sitecore/ParentPathLink';
-import SocialShare from 'src/components/non-sitecore/SocialShare';
 
 const importMap = [
   {
@@ -137,8 +137,8 @@ const importMap = [
       { name: 'TrendingUp', value: TrendingUp },
       { name: 'Unplug', value: Unplug },
       { name: 'Zap', value: Zap },
-      { name: 'Loader2', value: Loader2 },
       { name: 'Bookmark', value: Bookmark },
+      { name: 'Loader2', value: Loader2 },
     ]
   },
   {
@@ -181,6 +181,12 @@ const importMap = [
       { name: 'DEFAULT_IMG_URL', value: DEFAULT_IMG_URL },
       { name: 'PREVIEW_WIDGET_ID', value: PREVIEW_WIDGET_ID },
       { name: 'HOMEHIGHLIGHTED_WIDGET_ID', value: HOMEHIGHLIGHTED_WIDGET_ID },
+    ]
+  },
+  {
+    module: 'src/components/non-sitecore/search/HomeHighlighted',
+    exports: [
+      { name: 'default', value: HomeHighlighted },
     ]
   },
   {
@@ -282,12 +288,6 @@ const importMap = [
       { name: 'ListBulletIcon', value: ListBulletIcon },
       { name: 'CheckIcon', value: CheckIcon },
       { name: 'ChevronDownIcon', value: ChevronDownIcon },
-    ]
-  },
-  {
-    module: 'src/components/non-sitecore/search/HomeHighlighted',
-    exports: [
-      { name: 'default', value: HomeHighlighted },
     ]
   },
   {
@@ -490,6 +490,12 @@ const importMap = [
     ]
   },
   {
+    module: 'src/components/non-sitecore/SocialShare',
+    exports: [
+      { name: 'default', value: SocialShare },
+    ]
+  },
+  {
     module: '@/helpers/articleHelpers',
     exports: [
       { name: 'getArticlesCountsByCategory', value: getArticlesCountsByCategory },
@@ -511,12 +517,6 @@ const importMap = [
     module: 'src/components/non-sitecore/ParentPathLink',
     exports: [
       { name: 'ParentPathLink', value: ParentPathLink },
-    ]
-  },
-  {
-    module: 'src/components/non-sitecore/SocialShare',
-    exports: [
-      { name: 'default', value: SocialShare },
     ]
   }
 ] as ImportEntry[];

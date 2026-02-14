@@ -13,13 +13,10 @@ export const HomeHighlightedComponent = (): JSX.Element => {
     queryResult: { data: { content: articles = [] } = {} },
   } = useSearchResults({
     query: (query) => {
-      query.getRequest().setSearchFilter(new FilterEqual('type', 'Article'));
+      query.getRequest().setSearchFilter(new FilterEqual('type', 'Case Study'));
 
       if (SEARCH_CONFIG.source !== '') {
-        const sources = SEARCH_CONFIG.source.split('|');
-        sources.forEach((source) => {
-          query.getRequest().addSource(source.trim());
-        });
+        query.getRequest().addSource(SEARCH_CONFIG.source.trim());
       }
     },
   });
@@ -30,9 +27,9 @@ export const HomeHighlightedComponent = (): JSX.Element => {
   return (
     <div className="container mx-auto px-4">
       <div className="my-12 text-center">
-        <h2 className="text-foreground mb-4 text-3xl font-bold md:text-4xl">Get Inspired</h2>
+        <h2 className="text-foreground mb-4 text-3xl font-bold md:text-4xl">Browse our case studies</h2>
         <p className="text-foreground-muted text-xl">
-          Discover amazing products and articles from our latest stories
+          Discover how similar customers are using our products.
         </p>
       </div>
 

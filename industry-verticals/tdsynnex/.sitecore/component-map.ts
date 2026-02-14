@@ -15,6 +15,10 @@ import * as RichText from 'src/components/rich-text/RichText';
 import * as Promo from 'src/components/promo/Promo';
 import * as PartialDesignDynamicPlaceholder from 'src/components/partial-design-dynamic-placeholder/PartialDesignDynamicPlaceholder';
 import * as PageContent from 'src/components/page-content/PageContent';
+import * as ThreeColCard from 'src/components/non-sitecore/tdsynnex/ThreeColCard';
+import * as TDImageSection from 'src/components/non-sitecore/tdsynnex/TDImageSection';
+import * as TDBanner from 'src/components/non-sitecore/tdsynnex/TDBanner';
+import * as demo from 'src/components/non-sitecore/tdsynnex/demo';
 import * as SuggestionBlock from 'src/components/non-sitecore/search/SuggestionBlock';
 import * as Spinner from 'src/components/non-sitecore/search/Spinner';
 import * as SortOrder from 'src/components/non-sitecore/search/SortOrder';
@@ -62,6 +66,10 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['Promo', { ...Promo }],
   ['PartialDesignDynamicPlaceholder', { ...PartialDesignDynamicPlaceholder }],
   ['PageContent', { ...PageContent }],
+  ['ThreeColCard', { ...ThreeColCard }],
+  ['TDImageSection', { ...TDImageSection }],
+  ['TDBanner', { ...TDBanner }],
+  ['demo', { ...demo }],
   ['SuggestionBlock', { ...SuggestionBlock }],
   ['Spinner', { ...Spinner }],
   ['SortOrder', { ...SortOrder }],

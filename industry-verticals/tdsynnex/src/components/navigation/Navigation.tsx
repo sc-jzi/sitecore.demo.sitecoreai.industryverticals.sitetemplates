@@ -65,14 +65,14 @@ const NavigationListItem: React.FC<NavigationListItemProps> = ({
 
   const childrenMarkup = hasChildren
     ? fields.Children!.map((child) => (
-        <NavigationListItem
-          key={child.Id}
-          fields={child}
-          handleClick={clickHandler}
-          isSimpleLayout={isSimpleLayout}
-          logoSrc={logoSrc}
-        />
-      ))
+      <NavigationListItem
+        key={child.Id}
+        fields={child}
+        handleClick={clickHandler}
+        isSimpleLayout={isSimpleLayout}
+        logoSrc={logoSrc}
+      />
+    ))
     : null;
 
   return (
@@ -122,9 +122,7 @@ const NavigationListItem: React.FC<NavigationListItemProps> = ({
                 </button>
               </DrawerClose>
               <div className="px-12">
-                {logoSrc && (
-                  <img src={logoSrc} alt={fields.DisplayName} className="mt-14 mb-18 h-auto w-36" />
-                )}
+                <img src="https://www.tdsynnex.com/na/us/wp-content//uploads/sites/2/2022/08/TDSYNNEXLogo@2x.png" width="185" height="36" alt="Logo" id="tdsynnexlogo" />
 
                 <div className="text-foreground-light mb-6 text-sm font-medium">
                   {getLinkContent(fields, logoSrc)}

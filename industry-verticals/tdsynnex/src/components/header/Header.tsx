@@ -28,7 +28,7 @@ export const Default = (props: HeaderProps): JSX.Element => {
     <div className={`component header bg-background border-b ${styles}`} id={id}>
       <div className="container flex items-center gap-4 py-4 lg:gap-6">
         <div className="header-block *:shrink max-lg:w-full max-lg:justify-between lg:shrink-0">
-          <Placeholder name={`header-left-${DynamicPlaceholderId}`} rendering={props.rendering} />
+          <img src="https://www.tdsynnex.com/na/us/wp-content/uploads/sites/2/2022/08/TDSYNNEXLogo@2x.png" width="185" height="36" alt="Logo" id="tdsynnexlogo" />
         </div>
         <div className="hidden! lg:flex! lg:shrink lg:basis-full">
           <Placeholder name={`header-nav-${DynamicPlaceholderId}`} rendering={props.rendering} />
@@ -41,6 +41,8 @@ export const Default = (props: HeaderProps): JSX.Element => {
         >
           <Search className="size-5" />
         </button>
+
+        <img src="https://www.tdsynnex.com/na/ca/wp-content/themes/visual-composer-starter/images/menu/Icon_Globe_Charcoal_24.svg" alt="Locations" />
 
         {/* Mobile Drawer Trigger */}
         <div className="lg:hidden">

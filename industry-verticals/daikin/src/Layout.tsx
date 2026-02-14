@@ -58,9 +58,9 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
         {ogTitle && <meta property="og:title" content={ogTitle} />}
         {ogDescription && <meta property="og:description " content={ogDescription} />}
         {ogImage && <meta property="og:image" content={ogImage} />}
-        {ogUrl && <meta property="og:url" content={ogUrl} />}
+        {ogUrl && <meta property="og:url" content={ogUrl.replace('/_site_daikin', '')} />}
         {/* Custom meta tag for current relative path - used in Search */}
-        {currentPath && <meta name="page-path" content={currentPath} />}
+        {currentPath && <meta name="page-path" content={currentPath.replace('/_site_daikin', '')} />}
       </Head>
 
       {/* root placeholder for the app, which we add components to using route data */}

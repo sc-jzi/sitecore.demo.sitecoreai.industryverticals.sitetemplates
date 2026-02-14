@@ -74,7 +74,7 @@ export const HeroCarousel = (props: HeroCarouselProps): JSX.Element => {
               <Text field={props.fields.Slides[current].fields.Subtitle} />
             </p>
 
-            <Link field={props.fields.Slides[current].fields.CTA} className="mt-6 inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-md font-semibold text-sm hover:bg-primary/90 transition-colors" />
+            <Link field={props.fields.Slides[current].fields.CTA} className="mt-6 inline-flex items-center gap-2 bg-[#009fde] text-white px-6 py-3 rounded-md font-semibold text-sm hover:bg-primary/90 transition-colors" />
           </div>
         </div>
       </div>

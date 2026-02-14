@@ -53,7 +53,7 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
         <link rel="icon" href="/favicon.ico" />
         {metaDescription && <meta name="description" content={metaDescription} />}
         {metaKeywords && <meta name="keywords" content={metaKeywords} />}
-        {caseStudyType && <meta name="CaseStudyType" content={caseStudyType} />}
+        {caseStudyType && <meta name="casestudytype" content={caseStudyType} />}
         <link rel="icon" href="/favicon.ico" />
         {ogTitle && <meta property="og:title" content={ogTitle} />}
         {ogDescription && <meta property="og:description " content={ogDescription} />}

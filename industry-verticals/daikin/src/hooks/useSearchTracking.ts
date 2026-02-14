@@ -31,18 +31,24 @@ export function useSearchTracking() {
       const { url, widgetId, entityType, events, entityId, itemIndex } = args;
 
       e.preventDefault();
-
+      alert ('going through events');
       events?.forEach((event) => {
         if (event === 'EntityPageView' && entityType && entityId) {
+      alert ('entitypageview track');
+
           trackEntityPageViewEvent(entityType, { items: [{ id: entityId }] });
         }
         if (event === 'PreviewSearchClickEvent') {
+      alert ('preview click track');
+
           trackPreviewSearchClickEvent(widgetId, entityType, {
             index: itemIndex,
             items: [{ id: entityId }],
           });
         }
         if (event === 'SearchClickEvent') {
+      alert ('search click track');
+
           trackSearchClickEntityEvent(widgetId, entityType, {
             actionCause: 'entity',
             index: itemIndex,

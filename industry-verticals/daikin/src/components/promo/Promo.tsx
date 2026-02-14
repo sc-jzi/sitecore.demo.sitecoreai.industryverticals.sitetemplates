@@ -50,7 +50,7 @@ export const Default = (props: PromoProps): JSX.Element => {
             <div className="mt-4 mb-6">
               <ContentSdkRichText field={props.fields.PromoDescription} />
             </div>
-            <ContentSdkLink field={props.fields.PromoMoreInfo} className="main-btn" />
+            <ContentSdkLink field={props.fields.PromoMoreInfo} className="main-btn" style={{ background: "#009fde" }} />
           </div>
         </div>
       </div>
@@ -117,7 +117,7 @@ export const Stacked = (props: PromoProps): JSX.Element => {
             <div className="mt-4 mb-6">
               <ContentSdkRichText field={props.fields.PromoDescription} />
             </div>
-            <ContentSdkLink field={props.fields.PromoMoreInfo} className="main-btn" />
+            <ContentSdkLink field={props.fields.PromoMoreInfo} className="main-btn" style={{ background: "#009fde" }} />
           </div>
         </div>
       </div>

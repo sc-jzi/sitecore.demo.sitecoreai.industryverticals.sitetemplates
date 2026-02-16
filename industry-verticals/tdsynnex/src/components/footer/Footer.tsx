@@ -1,6 +1,34 @@
 import React, { JSX } from 'react';
+import Link from 'next/link';
+import {
+  ComponentParams,
+  ComponentRendering,
+  ImageField,
+  LinkField,
+  RichTextField,
+  TextField,
+} from '@sitecore-content-sdk/nextjs';
+interface Fields {
+  TitleOne: TextField;
+  TitleTwo: TextField;
+  TitleThree: TextField;
+  CopyrightText: TextField;
+  PolicyText: LinkField;
+  CookiesText: LinkField;
+  ContactText: LinkField;
+  TermsText: LinkField;
+  Logo: ImageField;
+  Description: RichTextField;
+}
 
-const Footer = (): JSX.Element => {
+type FooterProps = {
+  rendering: ComponentRendering & { params: ComponentParams };
+  params: { [key: string]: string };
+  fields: Fields;
+};
+
+const Footer = (props: FooterProps): JSX.Element => {
+  console.log(props);
   return (
     <>
       <footer id="footer-wrapper" className="bg-[#003032] w-full text-white bg-[url(https://images.synnex.com/files/USSiteFooterBackground.jpg)]">
@@ -13,23 +41,23 @@ const Footer = (): JSX.Element => {
               <div className="grid grid-cols-1 gap-0 lg:grid-cols-12">
                 <div className="lg:col-span-5">
                   <div className="h-[45px] w-full px-0 shadow-[0_2px_0_0_#005758,0_2px_0_0_#005758_inset]">
-                    <a
+                    <Link
                       href="/na/ca/become-a-vendor/"
                       className="h-[45px] w-full inline-flex items-center font-['TWK_Everett_Regular'] leading-[1.5] no-underline
                        focus:outline-none focus:text-[#a6c4c5] focus:no-underline"
                     >
                       Become a vendor
-                    </a>
+                    </Link>
                   </div>
 
                   <div className="h-[45px] w-full px-0 shadow-[0_2px_0_0_#005758,0_2px_0_0_#005758_inset]">
-                    <a
+                    <Link
                       href="/na/ca/become-a-customer/"
                       className="h-[45px] w-full inline-flex items-center font-['TWK_Everett_Regular'] leading-[1.5] no-underline
                        focus:outline-none focus:text-[#a6c4c5] focus:no-underline"
                     >
                       Become a customer
-                    </a>
+                    </Link>
                   </div>
 
                   <div className="h-[45px] w-full px-0 shadow-[0_2px_0_0_#005758,0_2px_0_0_#005758_inset]">
@@ -46,7 +74,7 @@ const Footer = (): JSX.Element => {
                 </div>
                 <div className="lg:col-span-4">
                   <div className="h-[45px] w-full px-0 shadow-[0_2px_0_0_#005758,0_2px_0_0_#005758_inset]">
-                    <a
+                    <Link
                       href="https://www.linkedin.com/company/tdsynnex/mycompany/"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -54,11 +82,11 @@ const Footer = (): JSX.Element => {
                        focus:outline-none focus:text-[#a6c4c5] focus:no-underline"
                     >
                       LinkedIn
-                    </a>
+                    </Link>
                   </div>
 
                   <div className="h-[45px] w-full px-0 shadow-[0_2px_0_0_#005758,0_2px_0_0_#005758_inset]">
-                    <a
+                    <Link
                       href="https://www.facebook.com/TDSYNNEX"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -66,11 +94,11 @@ const Footer = (): JSX.Element => {
                        focus:outline-none focus:text-[#a6c4c5] focus:no-underline"
                     >
                       Facebook
-                    </a>
+                    </Link>
                   </div>
 
                   <div className="h-[45px] w-full px-0 shadow-[0_2px_0_0_#005758,0_2px_0_0_#005758_inset]">
-                    <a
+                    <Link
                       href="https://twitter.com/tdsynnex"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -78,12 +106,12 @@ const Footer = (): JSX.Element => {
                        focus:outline-none focus:text-[#a6c4c5] focus:no-underline"
                     >
                       Twitter
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="lg:col-span-3">
                   <div className="h-[45px] w-full px-0 shadow-[0_2px_0_0_#005758,0_2px_0_0_#005758_inset]">
-                    <a
+                    <Link
                       href="https://www.instagram.com/tdsynnex"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -91,7 +119,7 @@ const Footer = (): JSX.Element => {
                        focus:outline-none focus:text-[#a6c4c5] focus:no-underline"
                     >
                       Instagram
-                    </a>
+                    </Link>
                   </div>
 
                   <div className="hidden lg:block h-[45px] w-full shadow-[0_2px_0_0_#005758,0_2px_0_0_#005758_inset]"></div>
@@ -130,36 +158,36 @@ const Footer = (): JSX.Element => {
               <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8">
                 <div className="lg:col-span-7 space-y-4">
                   <p className="m-0 font-['TWK_Everett_Regular'] leading-[1.5]">
-                    <a
+                    <Link
                       href="https://www.tdsynnex.com/ca/en/privacy.html"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center leading-[1.3] no-underline hover:underline text-white"
                     >
                       Privacy
-                    </a>
+                    </Link>
                   </p>
 
                   <p className="m-0 font-['TWK_Everett_Regular'] leading-[1.5]">
-                    <a
+                    <Link
                       href="https://www.tdsynnex.com/ca/en/terms-and-conditions.html"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center leading-[1.3] no-underline hover:underline text-white"
                     >
                       Terms &amp; Conditions
-                    </a>
+                    </Link>
                   </p>
 
                   <p className="m-0 font-['TWK_Everett_Regular'] leading-[1.5]">
-                    <a
+                    <Link
                       href="#"
                       data-toggle="modal"
                       data-target="#staticBackdrop"
                       className="inline-flex items-center leading-[1.3] no-underline hover:underline text-white"
                     >
                       Global Sites
-                    </a>
+                    </Link>
                   </p>
                   <p className="m-0 pt-2 font-['TWK_Everett_Regular'] leading-[1.5]">
                     <button
@@ -175,36 +203,36 @@ const Footer = (): JSX.Element => {
 
                 <div className="lg:col-span-5 space-y-4">
                   <p className="m-0 font-['TWK_Everett_Regular'] leading-[1.5]">
-                    <a
+                    <Link
                       href="https://www.tdsynnex.com/ca/en/accessibility-statement.html"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center leading-[1.3] no-underline hover:underline text-white"
                     >
                       Accessibility
-                    </a>
+                    </Link>
                   </p>
 
                   <p className="m-0 font-['TWK_Everett_Regular'] leading-[1.5]">
-                    <a
+                    <Link
                       href="https://www.tdsynnex.com/na/ca/wp-content/uploads/sites/3/2024/06/TD-SYNNEX-CANADA-Draft-S-211-5.20.2024-FINAL-SIGNED.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center leading-[1.3] no-underline hover:underline text-white"
                     >
                       Canada Modern Slavery Act
-                    </a>
+                    </Link>
                   </p>
 
                   <p className="m-0 font-['TWK_Everett_Regular'] leading-[1.5]">
-                    <a
+                    <Link
                       href="https://www.tdsynnex.com/na/ca/wp-content/uploads/sites/3/2026/01/Bill-29-Information.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center leading-[1.3] no-underline hover:underline text-white"
                     >
                       Bill 29 Information
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </div>

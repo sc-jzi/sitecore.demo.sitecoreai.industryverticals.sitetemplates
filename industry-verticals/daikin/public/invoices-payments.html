@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Invoices &amp; Payments - Daikin Applied</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f8f9fa;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    .header {
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 20px;
+      color: #1e293b;
+    }
+
+    .logo svg {
+      color: #005EB8;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav a {
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav a:hover {
+      color: #005EB8;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #005EB8, #003E7E);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    /* Layout */
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 64px);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: white;
+      border-right: 1px solid #e2e8f0;
+      padding: 24px 16px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-section {
+      margin-bottom: 24px;
+    }
+
+    .sidebar-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0 12px;
+      margin-bottom: 8px;
+    }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #64748b;
+      transition: all 0.2s;
+    }
+
+    .sidebar-link:hover {
+      background: #f1f5f9;
+      color: #1e293b;
+    }
+
+    .sidebar-link.active {
+      background: #EAF3FF;
+      color: #005EB8;
+    }
+
+    .sidebar-link svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      padding: 32px;
+      max-width: 900px;
+    }
+
+    .page-header {
+      margin-bottom: 32px;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .breadcrumb a {
+      color: #005EB8;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .page-subtitle {
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    /* Cards */
+    .card {
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 20px;
+    }
+
+    .card-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .card-body {
+      padding: 24px;
+    }
+
+    /* Balance Card */
+    .balance-card {
+      background: linear-gradient(135deg, #005EB8 0%, #003E7E 100%);
+      border-radius: 12px;
+      padding: 24px;
+      color: white;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .balance-label {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-bottom: 4px;
+    }
+
+    .balance-amount {
+      font-size: 36px;
+      font-weight: 700;
+    }
+
+    .balance-due {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    .balance-breakdown {
+      text-align: right;
+    }
+
+    .breakdown-item {
+      font-size: 13px;
+      opacity: 0.9;
+      margin-bottom: 4px;
+    }
+
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #005EB8;
+      box-shadow: 0 0 0 3px rgba(0, 94, 184, 0.10);
+    }
+
+    .form-input::placeholder {
+      color: #94a3b8;
+    }
+
+    /* Radio Options */
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .radio-option:hover {
+      border-color: #cbd5e1;
+    }
+
+    .radio-option.selected {
+      border-color: #005EB8;
+      background: #EAF3FF;
+    }
+
+    .radio-option input {
+      display: none;
+    }
+
+    .radio-circle {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #cbd5e1;
+      border-radius: 50%;
+      margin-right: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .radio-option.selected .radio-circle {
+      border-color: #005EB8;
+    }
+
+    .radio-option.selected .radio-circle::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background: #005EB8;
+      border-radius: 50%;
+    }
+
+    .radio-content {
+      flex: 1;
+    }
+
+    .radio-title {
+      font-weight: 500;
+      color: #1e293b;
+      margin-bottom: 2px;
+    }
+
+    .radio-desc {
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .radio-amount {
+      font-weight: 600;
+      font-size: 18px;
+      color: #1e293b;
+    }
+
+    /* Payment Method Cards */
+    .payment-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .payment-method {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .payment-method:hover {
+      border-color: #cbd5e1;
+    }
+
+    .payment-method.selected {
+      border-color: #005EB8;
+      background: #EAF3FF;
+    }
+
+    .payment-icon {
+      width: 48px;
+      height: 32px;
+      background: #f1f5f9;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 14px;
+      font-weight: 600;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .payment-method.selected .payment-icon {
+      background: #D6E9FF;
+      color: #003E7E;
+    }
+
+    .payment-details {
+      flex: 1;
+    }
+
+    .payment-name {
+      font-weight: 500;
+      color: #1e293b;
+    }
+
+    .payment-info {
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .payment-badge {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 8px;
+      background: #dcfce7;
+      color: #16a34a;
+      border-radius: 4px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: #005EB8;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #003E7E;
+    }
+
+    .btn-primary:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #e2e8f0;
+      color: #64748b;
+    }
+
+    .btn-outline:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .btn-sm {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+
+    .btn-lg {
+      padding: 14px 28px;
+      font-size: 16px;
+    }
+
+    /* Summary */
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+      padding-top: 16px;
+      margin-top: 8px;
+      border-top: 2px solid #e2e8f0;
+    }
+
+    .summary-label {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .summary-value {
+      font-weight: 500;
+      color: #1e293b;
+    }
+
+    .summary-total {
+      font-size: 20px;
+      font-weight: 700;
+      color: #005EB8;
+    }
+
+    /* Two Column */
+    .two-column {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+    }
+
+    /* Secure Notice */
+    .secure-notice {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 16px;
+    }
+
+    .secure-notice svg {
+      color: #16a34a;
+    }
+
+    /* Footer */
+    .footer {
+      background: #1e293b;
+      color: #94a3b8;
+      padding: 48px 32px 24px;
+      margin-top: 48px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      max-width: 1200px;
+      margin: 0 auto 32px;
+    }
+
+    .footer-brand {
+      color: white;
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-desc {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer-title {
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #005EB8;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #334155;
+      padding-top: 24px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+
+      .balance-card {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .balance-breakdown {
+        text-align: center;
+        margin-top: 16px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+<a aria-label="Daikin Applied Customer Portal" class="logo" href="daikin-my-account.html">
+<img alt="Daikin Applied" src="https://www.daikinapplied.com/App_Themes/SiteTheme/Global/assets/img/daikin-logo.png" style="height:28px;display:block;"/>
+<span style="font-weight:700;font-size:16px;color:#1e293b;">Customer Portal</span>
+</a>
+<nav aria-label="Primary" class="nav">
+<a href="https://www.daikinapplied.com/products" rel="noreferrer" target="_blank">Products</a>
+<a href="https://www.daikinapplied.com/service" rel="noreferrer" target="_blank">Service</a>
+<a href="https://www.daikinapplied.com/resources" rel="noreferrer" target="_blank">Resources</a>
+<a href="https://www.daikinapplied.com/" rel="noreferrer" target="_blank">DaikinApplied.com</a>
+</nav>
+<div class="header-right">
+<button aria-label="Search portal" class="btn btn-outline btn-sm">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<circle cx="11" cy="11" r="8"></circle>
+<path d="m21 21-4.3-4.3"></path>
+</svg>
+</button>
+<div class="avatar" title="Sarah Kim">SK</div>
+</div>
+</header>
+<div class="layout">
+<!-- Sidebar -->
+<aside class="sidebar">
+<div class="sidebar-section">
+<div class="sidebar-label">Portal</div>
+<nav class="sidebar-nav">
+<a class="sidebar-link" href="my-account.html"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>Overview</a>
+<a class="sidebar-link" href="#"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M3 3v18h18"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg>My Equipment</a>
+<a class="sidebar-link" href="#"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.1-3.1a6 6 0 0 1-7.9 7.9l-6.6 6.6a2 2 0 0 1-2.8 0l-.1-.1a2 2 0 0 1 0-2.8l6.6-6.6a6 6 0 0 1 7.9-7.9l-3.2 3.2z"></path></svg>Service Requests</a>
+<a class="sidebar-link" href="#"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>Appointments</a>
+<a class="sidebar-link active" href="invoices-payments.html"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="14" rx="2" width="20" x="2" y="5"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>Invoices &amp; Payments</a>
+<a class="sidebar-link" href="#"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>Documents &amp; Manuals</a>
+</nav>
+</div>
+<div class="sidebar-section">
+<div class="sidebar-label">Settings</div>
+<nav class="sidebar-nav">
+<a class="sidebar-link" href="#"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>Profile</a>
+<a class="sidebar-link" href="notifications.html"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>Alerts &amp; Notifications</a>
+<a class="sidebar-link" href="#"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Security</a>
+</nav>
+</div>
+<div class="sidebar-section">
+<div class="sidebar-label">Support</div>
+<nav class="sidebar-nav">
+<a class="sidebar-link" href="#"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>Support Center</a>
+<a class="sidebar-link" href="#"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Contact Daikin Applied</a>
+</nav>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="main">
+<div class="page-header">
+<div class="breadcrumb">
+<a href="daikin-my-account.html">Customer Portal</a>
+<span>/</span>
+<span>Invoices &amp; Payments</span>
+</div>
+<h1 class="page-title">Invoices &amp; Payments</h1>
+<p class="page-subtitle">Pay invoices, manage payment methods, and view service plan renewals</p>
+</div>
+<!-- Balance Card -->
+<div class="balance-card">
+<div>
+<div class="balance-label">Outstanding Invoices</div>
+<div class="balance-amount">$3,842.10</div>
+<div class="balance-due">Next invoice due by March 1, 2026</div>
+</div>
+<div class="balance-breakdown">
+<div class="breakdown-item">Invoice INV-10492: PM Service Visit (scheduled)</div>
+<div class="breakdown-item">Invoice INV-10488: Filters &amp; Consumables</div>
+<div class="breakdown-item">Customer: St. Anne’s Hospital • Account SAH-01922</div>
+</div>
+</div>
+<div class="two-column">
+<!-- Payment Form -->
+<div>
+<!-- Payment Amount -->
+<div class="card">
+<div class="card-header">
+<h2 class="card-title">Payment Amount</h2>
+</div>
+<div class="card-body">
+<div class="radio-group">
+<label class="radio-option selected">
+<input checked="" name="amount" type="radio" value="full"/>
+<div class="radio-circle"></div>
+<div class="radio-content">
+<div class="radio-title">Pay All Open Invoices</div>
+<div class="radio-desc">Pay the total outstanding balance</div>
+</div>
+<div class="radio-amount">$3,842.10</div>
+</label>
+<label class="radio-option">
+<input name="amount" type="radio" value="minimum"/>
+<div class="radio-circle"></div>
+<div class="radio-content">
+<div class="radio-title">Pay Next Due Invoice</div>
+<div class="radio-desc">Invoice INV-10488 due March 1, 2026</div>
+</div>
+<div class="radio-amount">$1,276.00</div>
+</label>
+<label class="radio-option">
+<input name="amount" type="radio" value="custom"/>
+<div class="radio-circle"></div>
+<div class="radio-content">
+<div class="radio-title">Custom Amount</div>
+<div class="radio-desc">Enter a different payment amount</div>
+</div>
+<input class="form-input" onclick="event.stopPropagation()" placeholder="$0.00" style="width: 100px; text-align: right; margin-left: auto;" type="text"/>
+</label>
+</div>
+</div>
+</div>
+<!-- Payment Method -->
+<div class="card">
+<div class="card-header">
+<h2 class="card-title">Payment Method</h2>
+<button class="btn btn-outline btn-sm">Add Payment Method</button>
+</div>
+<div class="card-body">
+<div class="payment-methods">
+<label class="payment-method selected">
+<input checked="" name="method" type="radio" value="visa"/>
+<div class="radio-circle"></div>
+<div class="payment-icon">VISA</div>
+<div class="payment-details">
+<div class="payment-name">Visa ending in 4242</div>
+<div class="payment-info">Expires 08/27</div>
+</div>
+<span class="payment-badge">Default</span>
+</label>
+<label class="payment-method">
+<input name="method" type="radio" value="mc"/>
+<div class="radio-circle"></div>
+<div class="payment-icon">MC</div>
+<div class="payment-details">
+<div class="payment-name">Mastercard ending in 8888</div>
+<div class="payment-info">Expires 03/26</div>
+</div>
+</label>
+<label class="payment-method">
+<input name="method" type="radio" value="bank"/>
+<div class="radio-circle"></div>
+<div class="payment-icon">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20">
+<rect height="12" rx="2" width="18" x="3" y="8"></rect>
+<path d="M7 8V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"></path>
+</svg>
+</div>
+<div class="payment-details">
+<div class="payment-name">Chase Checking ...6789</div>
+<div class="payment-info">Bank Account</div>
+</div>
+</label>
+</div>
+</div>
+</div>
+<!-- Payment Date -->
+<div class="card">
+<div class="card-header">
+<h2 class="card-title">Payment Date</h2>
+</div>
+<div class="card-body">
+<div class="radio-group">
+<label class="radio-option selected">
+<input checked="" name="date" type="radio" value="today"/>
+<div class="radio-circle"></div>
+<div class="radio-content">
+<div class="radio-title">Pay Now</div>
+<div class="radio-desc">Process payment immediately</div>
+</div>
+</label>
+<label class="radio-option">
+<input name="date" type="radio" value="scheduled"/>
+<div class="radio-circle"></div>
+<div class="radio-content">
+<div class="radio-title">Schedule Payment</div>
+<div class="radio-desc">Choose a future date</div>
+</div>
+<input class="form-input" onclick="event.stopPropagation()" style="width: 160px;" type="date"/>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Summary -->
+<div>
+<div class="card" style="position: sticky; top: 96px;">
+<div class="card-header">
+<h2 class="card-title">Payment Summary</h2>
+</div>
+<div class="card-body">
+<div class="summary-row">
+<span class="summary-label">Account</span>
+<span class="summary-value">SAH-01922</span>
+</div>
+<div class="summary-row">
+<span class="summary-label">Site</span>
+<span class="summary-value">St. Anne’s Hospital</span>
+</div>
+<div class="summary-row">
+<span class="summary-label">Payment Amount</span>
+<span class="summary-value">$3,842.10</span>
+</div>
+<div class="summary-row">
+<span class="summary-label">Payment Method</span>
+<span class="summary-value">Visa ...4242</span>
+</div>
+<div class="summary-row">
+<span class="summary-label">Processing</span>
+<span class="summary-value">Today</span>
+</div>
+<div class="summary-row">
+<span class="summary-label">Total</span>
+<span class="summary-total">$3,842.10</span>
+</div>
+<button class="btn btn-primary btn-lg" style="width: 100%; margin-top: 20px;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18">
+<rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect>
+<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+</svg>
+                Submit Payment
+              </button>
+<div class="secure-notice">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+<polyline points="9 12 12 15 16 10"></polyline>
+</svg>
+                Your payment is secured with 256-bit encryption
+              </div>
+</div>
+</div>
+<!-- Help Box -->
+<div class="card" style="margin-top: 20px;">
+<div class="card-body">
+<h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #1e293b;">Need Help?</h3>
+<p style="font-size: 13px; color: #64748b; margin-bottom: 16px;">Questions about an invoice or service plan renewal? Contact your support team or request a callback.</p>
+<button class="btn btn-outline btn-sm" style="width: 100%;">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+</svg>
+                Contact Support
+              </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="footer">
+<div class="footer-grid">
+<div>
+<div class="footer-brand">
+<img alt="Daikin Applied" src="https://www.daikinapplied.com/App_Themes/SiteTheme/Global/assets/img/daikin-logo.png" style="height:26px;display:block;"/>
+</div>
+<p class="footer-desc">
+        This is a demo portal experience showing self-service, service scheduling, equipment dashboards, and lifecycle support
+        for Daikin Applied customers.
+      </p>
+</div>
+<div>
+<div class="footer-title">Portal</div>
+<div class="footer-links">
+<a href="my-account.html">Overview</a>
+<a href="invoices-payments.html">Invoices &amp; Payments</a>
+<a href="notifications.html">Alerts &amp; Notifications</a>
+<a href="#">Documents &amp; Manuals</a>
+</div>
+</div>
+<div>
+<div class="footer-title">Daikin Applied</div>
+<div class="footer-links">
+<a href="https://www.daikinapplied.com/products" rel="noreferrer" target="_blank">Products</a>
+<a href="https://www.daikinapplied.com/service" rel="noreferrer" target="_blank">Service</a>
+<a href="https://www.daikinapplied.com/resources" rel="noreferrer" target="_blank">Resources</a>
+<a href="https://www.daikinapplied.com/" rel="noreferrer" target="_blank">Company Site</a>
+</div>
+</div>
+<div>
+<div class="footer-title">Demo Notes</div>
+<div class="footer-links">
+<a href="#">Predictive Maintenance</a>
+<a href="#">Warranty &amp; Coverage</a>
+<a href="#">Parts &amp; Consumables</a>
+<a href="#">Training</a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+    © 2026 Daikin Applied (Demo). All rights reserved.
+  </div>
+</footer>
+<script>
+    // Simple radio selection handling
+    document.querySelectorAll('.radio-option, .payment-method').forEach(option => {
+      option.addEventListener('click', function (e) {
+        if (e.target.tagName === 'INPUT' && e.target.type !== 'radio') return;
+
+        const group = this.closest('.radio-group, .payment-methods');
+        group.querySelectorAll('.radio-option, .payment-method').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        this.classList.add('selected');
+        this.querySelector('input[type="radio"]').checked = true;
+      });
+    });
+  </script>
+</body>
+</html>

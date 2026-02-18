@@ -69,7 +69,7 @@ export const ImageRight = (props: PromoProps): JSX.Element => {
       <div className="container">
         <div className="my-12 grid overflow-hidden rounded-xl border shadow transition-shadow hover:shadow-lg lg:grid-cols-2">
           <div className="flex flex-col justify-center p-6 lg:p-20">
-            <span className="text-accent-dark mb-1 text-sm font-bold">
+            <span className="text-red mb-1 text-sm font-bold">
               <ContentSdkText field={props.fields.PromoSubTitle} />
             </span>
             <h4>

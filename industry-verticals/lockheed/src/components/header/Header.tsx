@@ -56,12 +56,13 @@ export const Default = (props: HeaderProps): JSX.Element => {
       </div>
       <div className="container flex items-center gap-4 py-4 lg:gap-6">
         <div className="header-block *:shrink max-lg:w-full max-lg:justify-between lg:shrink-0">
-          <a href="/"><img src="https://www.daikinapplied.com/App_Themes/SiteTheme/Global/assets/img/daikin-logo.png" alt="Daikin logo" id="logo" className="w-50" /></a>
+          <a href="/"><img src="https://www.lockheedmartin.com//content/dam/lockheed-martin/general/lm-logo.svg" alt="Daikin logo" id="logo" className="w-50" /></a>
         </div>
         <div className="hidden! lg:flex! lg:shrink lg:basis-full">
           <Placeholder name={`header-nav-${DynamicPlaceholderId}`} rendering={props.rendering} />
         </div>
 
+        <img src="https://www.tdsynnex.com/na/ca/wp-content/themes/visual-composer-starter/images/menu/Icon_Globe_Charcoal_24.svg" alt="Locations" />
         {/* Search Button */}
         <button
           onClick={() => setIsSearchOpen(!isSearchOpen)}

@@ -1,0 +1,29 @@
+---
+ID: "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d"
+Parent: "07194d9b-c0d3-4b3a-9fd2-06c42800b5cf"
+Template: "e5b045ab-fadd-4e52-8168-4b4e5c489e36"
+Path: "/sitecore/content/industry-verticals/lockheed"
+SharedFields:
+- ID: "85a7501a-86d9-4243-9075-0b727c3a6db4"
+  Hint: Name
+  Value: Lockheed Martin
+- ID: "c7c26117-dbb1-42b2-ab5e-f7223845cca3"
+  Hint: __Thumbnail
+  Value: "<image mediaid='' />"
+- ID: "dbbbeca1-21c7-4906-9dd2-493c1efa59a2"
+  Hint: __Shared revision
+  Value: "00000000-0000-0000-0000-000000000001"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20260220T120000Z
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "00000000-0000-0000-0000-000000000001"
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20260220T120000Z

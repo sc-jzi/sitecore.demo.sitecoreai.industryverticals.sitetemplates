@@ -32,7 +32,7 @@ export const Default = (props: PromoProps): JSX.Element => {
   return (
     <div className={`${sxaStyles}`} id={id}>
       <div className="container">
-        <div className="my-12 grid overflow-hidden rounded-xl border shadow transition-shadow hover:shadow-lg lg:grid-cols-2">
+        <div className="col-12 col-lg-6 d-flex flex-column align-items-start mt-5">
           {/* Image Section */}
           <div className={`relative flex items-stretch ${isPromoReversed}`}>
             <ContentSdkImage

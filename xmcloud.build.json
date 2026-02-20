@@ -73,7 +73,7 @@
       "runCommand": "next:start"
     },
     "lockheed": {
-      "path": "./industry-verticals/trials/lockheed",
+      "path": "./industry-verticals/lockheed",
       "nodeVersion": "22.11.0",
       "jssDeploymentSecret": "110F1C44A496B45478640DD36F80C18C9",
       "enabled": true,

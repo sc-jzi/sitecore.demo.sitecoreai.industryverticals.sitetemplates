@@ -70,7 +70,7 @@ const Footer = (props: FooterProps): JSX.Element => {
           {/* footer content data */}
           <div>
             <div className="mb-4 flex max-w-40 space-x-2">
-              <img src="https://www.lockheedmartin.com//content/dam/lockheed-martin/general/lm-logo.svg" alt="Daikin logo" id="footer-logo" />
+              <img src="https://www.lockheedmartin.com//content/dam/lockheed-martin/general/lm-logo.svg" alt="Lockheed logo" id="footer-logo" />
             </div>
             <div className="**:text-[#221f20] mb-4">
               <RichText field={props.fields.Description} />

@@ -7,6 +7,8 @@ import { Placeholder, Field, Page, ImageField } from '@sitecore-content-sdk/next
 import Scripts from 'src/Scripts';
 import SitecoreStyles from 'src/components/content-sdk/SitecoreStyles';
 import { DesignLibraryLayout } from './DesignLibraryLayout';
+import { AuthProvider } from 'src/lib/auth-context';
+import { AppointmentsProvider } from 'src/lib/appointments-context';
 
 interface LayoutProps {
   page: Page;
@@ -51,30 +53,33 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
         {ogImage && <meta property="og:image" content={ogImage} />}
       </Head>
 
-      {/* root placeholder for the app, which we add components to using route data */}
-      <div className={mainClassPageEditing}>
-        {mode.isDesignLibrary ? (
-          <DesignLibraryLayout />
-        ) : (
-          <>
-            <header>
-              <div id="header">
-                {route && <Placeholder name="headless-header" rendering={route} />}
-              </div>
-            </header>
-            <main>
-              <div id="content">
-                {route && <Placeholder name="headless-main" rendering={route} />}
-              </div>
-            </main>
-            <footer>
-              <div id="footer">
-                {route && <Placeholder name="headless-footer" rendering={route} />}
-              </div>
-            </footer>
-          </>
-        )}
-      </div>
+      <AuthProvider>
+        <AppointmentsProvider>
+          <div className={mainClassPageEditing}>
+            {mode.isDesignLibrary ? (
+              <DesignLibraryLayout />
+            ) : (
+              <>
+                <header>
+                  <div id="header">
+                    {route && <Placeholder name="headless-header" rendering={route} />}
+                  </div>
+                </header>
+                <main>
+                  <div id="content">
+                    {route && <Placeholder name="headless-main" rendering={route} />}
+                  </div>
+                </main>
+                <footer>
+                  <div id="footer">
+                    {route && <Placeholder name="headless-footer" rendering={route} />}
+                  </div>
+                </footer>
+              </>
+            )}
+          </div>
+        </AppointmentsProvider>
+      </AuthProvider>
     </>
   );
 };

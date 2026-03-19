@@ -8,24 +8,49 @@ import {
 // end of built-in imports
 
 import { Link, Text, useSitecore, RichText, withDatasourceCheck, Placeholder, NextImage, CdpHelper } from '@sitecore-content-sdk/nextjs';
-import { useMemo, useState, useId, useEffect } from 'react';
+import { useMemo, useState, useEffect, useId } from 'react';
 import React from 'react';
 import { useTheme } from 'next-themes';
 import Head from 'next/head';
 import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { isParamEnabled } from '@/helpers/isParamEnabled';
 import BlobAccent from 'src/assets/shapes/BlobAccent';
 import CurvedClip from 'src/assets/shapes/CurvedClip';
-import BlobAccent_ff719d36323bb13e49440edf42521225aa8ecaa1 from '@/assets/shapes/BlobAccent';
 import { CommonStyles, FeatureStyles } from '@/types/styleFlags';
+import BlobAccent_ff719d36323bb13e49440edf42521225aa8ecaa1 from '@/assets/shapes/BlobAccent';
 import { faArrowRight, faBars, faChevronDown, faChevronUp, faTimes, faEnvelope, faPhone, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import BlobAccent_c450f25c63b00a2e370305e155038c473dbb9c49 from 'src/components/non-sitecore/BlobAccent';
 import CurvedClip_6089ba18dc7000eae1dc64c54178a20f58206b41 from 'src/components/non-sitecore/CurvedClip';
+import { useRouter } from 'next/navigation';
+import Link_a258c208ba01265ca0aa9c7abae745cc7141aa63 from 'next/link';
+import { useAuth } from '@/lib/auth-context';
+import { Button } from '@/shadcn/components/ui/button';
+import { Input } from '@/shadcn/components/ui/input';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, CardAction } from '@/shadcn/components/ui/card';
+import { Field, FieldGroup, FieldLabel } from '@/shadcn/components/ui/field';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shadcn/components/ui/select';
+import { Spinner } from '@/shadcn/components/ui/spinner';
+import { Alert, AlertDescription } from '@/shadcn/components/ui/alert';
+import { AlertCircle, ArrowLeft, ArrowRight, Check, Droplets, Calendar, MapPin, Clock, Plus, User, History, Phone, Search, Heart, Activity, Trophy } from 'lucide-react';
+import { useAppointments, useDonationStats } from '@/lib/appointments-context';
+import { LocationSelector } from 'src/components/non-sitecore/location-selector';
+import { DateTimeSelector } from 'src/components/non-sitecore/date-time-selector';
+import { RadioGroup, RadioGroupItem } from '@/shadcn/components/ui/radio-group';
+import { Label } from '@/shadcn/components/ui/label';
+import { Badge } from '@/shadcn/components/ui/badge';
+import { DonationStats } from 'src/components/non-sitecore/donation-stats';
+import { AppointmentCard } from 'src/components/non-sitecore/appointment-card';
+import { EmptyState } from 'src/components/non-sitecore/empty-state';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shadcn/components/ui/tabs';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/shadcn/components/ui/dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/shadcn/components/ui/alert-dialog';
+import { getLocationById, getAllLocations } from '@/lib/mock-data';
+import { cn } from '@/lib/utils';
+import { Progress } from '@/shadcn/components/ui/progress';
+import { Calendar as Calendar_74b73395a0f1da9412ffd8ae923ab5a11b90e740 } from '@/shadcn/components/ui/calendar';
 import { getLinkField, getNavigationText } from '@/helpers/navHelpers';
 import { useI18n } from 'next-localization';
 import HeroClip from '@/assets/shapes/HeroClip';
-import Link_a258c208ba01265ca0aa9c7abae745cc7141aa63 from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Keyboard, Navigation, Pagination } from 'swiper/modules';
 import client from 'lib/sitecore-client';
@@ -55,8 +80,8 @@ const importMap = [
     exports: [
       { name: 'useMemo', value: useMemo },
       { name: 'useState', value: useState },
-      { name: 'useId', value: useId },
       { name: 'useEffect', value: useEffect },
+      { name: 'useId', value: useId },
       { name: 'default', value: React },
     ]
   },
@@ -87,12 +112,6 @@ const importMap = [
     ]
   },
   {
-    module: '@/helpers/isParamEnabled',
-    exports: [
-      { name: 'isParamEnabled', value: isParamEnabled },
-    ]
-  },
-  {
     module: 'src/assets/shapes/BlobAccent',
     exports: [
       { name: 'default', value: BlobAccent },
@@ -105,16 +124,16 @@ const importMap = [
     ]
   },
   {
-    module: '@/assets/shapes/BlobAccent',
-    exports: [
-      { name: 'default', value: BlobAccent_ff719d36323bb13e49440edf42521225aa8ecaa1 },
-    ]
-  },
-  {
     module: '@/types/styleFlags',
     exports: [
       { name: 'CommonStyles', value: CommonStyles },
       { name: 'FeatureStyles', value: FeatureStyles },
+    ]
+  },
+  {
+    module: '@/assets/shapes/BlobAccent',
+    exports: [
+      { name: 'default', value: BlobAccent_ff719d36323bb13e49440edf42521225aa8ecaa1 },
     ]
   },
   {
@@ -143,6 +162,214 @@ const importMap = [
     ]
   },
   {
+    module: 'next/navigation',
+    exports: [
+      { name: 'useRouter', value: useRouter },
+    ]
+  },
+  {
+    module: 'next/link',
+    exports: [
+      { name: 'default', value: Link_a258c208ba01265ca0aa9c7abae745cc7141aa63 },
+    ]
+  },
+  {
+    module: '@/lib/auth-context',
+    exports: [
+      { name: 'useAuth', value: useAuth },
+    ]
+  },
+  {
+    module: '@/shadcn/components/ui/button',
+    exports: [
+      { name: 'Button', value: Button },
+    ]
+  },
+  {
+    module: '@/shadcn/components/ui/input',
+    exports: [
+      { name: 'Input', value: Input },
+    ]
+  },
+  {
+    module: '@/shadcn/components/ui/card',
+    exports: [
+      { name: 'Card', value: Card },
+      { name: 'CardContent', value: CardContent },
+      { name: 'CardDescription', value: CardDescription },
+      { name: 'CardFooter', value: CardFooter },
+      { name: 'CardHeader', value: CardHeader },
+      { name: 'CardTitle', value: CardTitle },
+      { name: 'CardAction', value: CardAction },
+    ]
+  },
+  {
+    module: '@/shadcn/components/ui/field',
+    exports: [
+      { name: 'Field', value: Field },
+      { name: 'FieldGroup', value: FieldGroup },
+      { name: 'FieldLabel', value: FieldLabel },
+    ]
+  },
+  {
+    module: '@/shadcn/components/ui/select',
+    exports: [
+      { name: 'Select', value: Select },
+      { name: 'SelectContent', value: SelectContent },
+      { name: 'SelectItem', value: SelectItem },
+      { name: 'SelectTrigger', value: SelectTrigger },
+      { name: 'SelectValue', value: SelectValue },
+    ]
+  },
+  {
+    module: '@/shadcn/components/ui/spinner',
+    exports: [
+      { name: 'Spinner', value: Spinner },
+    ]
+  },
+  {
+    module: '@/shadcn/components/ui/alert',
+    exports: [
+      { name: 'Alert', value: Alert },
+      { name: 'AlertDescription', value: AlertDescription },
+    ]
+  },
+  {
+    module: 'lucide-react',
+    exports: [
+      { name: 'AlertCircle', value: AlertCircle },
+      { name: 'ArrowLeft', value: ArrowLeft },
+      { name: 'ArrowRight', value: ArrowRight },
+      { name: 'Check', value: Check },
+      { name: 'Droplets', value: Droplets },
+      { name: 'Calendar', value: Calendar },
+      { name: 'MapPin', value: MapPin },
+      { name: 'Clock', value: Clock },
+      { name: 'Plus', value: Plus },
+      { name: 'User', value: User },
+      { name: 'History', value: History },
+      { name: 'Phone', value: Phone },
+      { name: 'Search', value: Search },
+      { name: 'Heart', value: Heart },
+      { name: 'Activity', value: Activity },
+      { name: 'Trophy', value: Trophy },
+    ]
+  },
+  {
+    module: '@/lib/appointments-context',
+    exports: [
+      { name: 'useAppointments', value: useAppointments },
+      { name: 'useDonationStats', value: useDonationStats },
+    ]
+  },
+  {
+    module: 'src/components/non-sitecore/location-selector',
+    exports: [
+      { name: 'LocationSelector', value: LocationSelector },
+    ]
+  },
+  {
+    module: 'src/components/non-sitecore/date-time-selector',
+    exports: [
+      { name: 'DateTimeSelector', value: DateTimeSelector },
+    ]
+  },
+  {
+    module: '@/shadcn/components/ui/radio-group',
+    exports: [
+      { name: 'RadioGroup', value: RadioGroup },
+      { name: 'RadioGroupItem', value: RadioGroupItem },
+    ]
+  },
+  {
+    module: '@/shadcn/components/ui/label',
+    exports: [
+      { name: 'Label', value: Label },
+    ]
+  },
+  {
+    module: '@/shadcn/components/ui/badge',
+    exports: [
+      { name: 'Badge', value: Badge },
+    ]
+  },
+  {
+    module: 'src/components/non-sitecore/donation-stats',
+    exports: [
+      { name: 'DonationStats', value: DonationStats },
+    ]
+  },
+  {
+    module: 'src/components/non-sitecore/appointment-card',
+    exports: [
+      { name: 'AppointmentCard', value: AppointmentCard },
+    ]
+  },
+  {
+    module: 'src/components/non-sitecore/empty-state',
+    exports: [
+      { name: 'EmptyState', value: EmptyState },
+    ]
+  },
+  {
+    module: '@/shadcn/components/ui/tabs',
+    exports: [
+      { name: 'Tabs', value: Tabs },
+      { name: 'TabsContent', value: TabsContent },
+      { name: 'TabsList', value: TabsList },
+      { name: 'TabsTrigger', value: TabsTrigger },
+    ]
+  },
+  {
+    module: '@/shadcn/components/ui/dialog',
+    exports: [
+      { name: 'Dialog', value: Dialog },
+      { name: 'DialogContent', value: DialogContent },
+      { name: 'DialogDescription', value: DialogDescription },
+      { name: 'DialogFooter', value: DialogFooter },
+      { name: 'DialogHeader', value: DialogHeader },
+      { name: 'DialogTitle', value: DialogTitle },
+    ]
+  },
+  {
+    module: '@/shadcn/components/ui/alert-dialog',
+    exports: [
+      { name: 'AlertDialog', value: AlertDialog },
+      { name: 'AlertDialogAction', value: AlertDialogAction },
+      { name: 'AlertDialogCancel', value: AlertDialogCancel },
+      { name: 'AlertDialogContent', value: AlertDialogContent },
+      { name: 'AlertDialogDescription', value: AlertDialogDescription },
+      { name: 'AlertDialogFooter', value: AlertDialogFooter },
+      { name: 'AlertDialogHeader', value: AlertDialogHeader },
+      { name: 'AlertDialogTitle', value: AlertDialogTitle },
+    ]
+  },
+  {
+    module: '@/lib/mock-data',
+    exports: [
+      { name: 'getLocationById', value: getLocationById },
+      { name: 'getAllLocations', value: getAllLocations },
+    ]
+  },
+  {
+    module: '@/lib/utils',
+    exports: [
+      { name: 'cn', value: cn },
+    ]
+  },
+  {
+    module: '@/shadcn/components/ui/progress',
+    exports: [
+      { name: 'Progress', value: Progress },
+    ]
+  },
+  {
+    module: '@/shadcn/components/ui/calendar',
+    exports: [
+      { name: 'Calendar', value: Calendar_74b73395a0f1da9412ffd8ae923ab5a11b90e740 },
+    ]
+  },
+  {
     module: '@/helpers/navHelpers',
     exports: [
       { name: 'getLinkField', value: getLinkField },
@@ -159,12 +386,6 @@ const importMap = [
     module: '@/assets/shapes/HeroClip',
     exports: [
       { name: 'default', value: HeroClip },
-    ]
-  },
-  {
-    module: 'next/link',
-    exports: [
-      { name: 'default', value: Link_a258c208ba01265ca0aa9c7abae745cc7141aa63 },
     ]
   },
   {

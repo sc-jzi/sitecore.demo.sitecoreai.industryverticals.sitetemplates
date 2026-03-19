@@ -11,7 +11,7 @@ import {
   TextField,
   DateField,
 } from '@sitecore-content-sdk/nextjs';
-import { Calendar, Clock, Heart, Share2 } from 'lucide-react';
+import { Calendar, Clock } from 'lucide-react';
 import { newsDateFormatter } from '../../helpers/dateHelper';
 import SocialShare from '../non-sitecore/SocialShare';
 import { useEffect, useState } from 'react';

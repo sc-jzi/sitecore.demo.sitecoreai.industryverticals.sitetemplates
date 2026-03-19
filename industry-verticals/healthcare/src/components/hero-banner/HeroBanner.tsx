@@ -4,8 +4,13 @@ import React from 'react';
 import { useI18n } from 'next-localization';
 import {
   ImageField,
+  LinkField,
+  Field,
   NextImage as ContentSdkImage,
   withDatasourceCheck,
+  Text,
+  RichText,
+  Link,
 } from '@sitecore-content-sdk/nextjs';
 import { ComponentProps } from '@/lib/component-props';
 import BlobAccent from '@/assets/shapes/BlobAccent';
@@ -13,6 +18,9 @@ import HeroClip from '@/assets/shapes/HeroClip';
 
 interface Fields {
   Image: ImageField;
+  Title: Field<string>;
+  Description: Field<string>;
+  CtaLink: LinkField
 }
 
 interface HeroBannerProps extends ComponentProps {
@@ -20,6 +28,40 @@ interface HeroBannerProps extends ComponentProps {
 }
 
 export const DefaultHeroBanner = (props: HeroBannerProps) => {
+  const id = props.params.RenderingIdentifier;
+  const { t } = useI18n();
+
+  return (
+    <section className={`relative pb-12 ${props?.params?.styles}`} id={id || undefined}>
+      <div className="relative min-h-[80vh]">
+        <div className="absolute inset-0 z-0 mask-[var(--background-image-hero-clip)] mask-cover">
+          <ContentSdkImage field={props.fields.Image} className="h-full w-full object-cover" />
+        </div>
+
+        {/* Optional dark overlay for better text contrast */}
+        <div className="absolute inset-0 z-[1] bg-black/40" />
+
+        <div className="pointer-events-none relative z-10 flex min-h-[80vh] items-center justify-center px-4">
+          <div className="pointer-events-auto max-w-4xl text-center">
+            <h2 className="text-4xl font-semibold leading-tight text-white md:text-5xl lg:text-6xl">
+              <Text field={props.fields.Title} />
+            </h2>
+
+            <div className="mt-6 text-center text-lg font-medium text-white md:text-2xl [&_p]:m-0 [&_p]:text-center">
+              <RichText field={props.fields.Description} />
+            </div>
+
+            <div className="mt-8">
+              <Link field={props.fields.CtaLink} className="inline-flex rounded-full bg-white px-8 py-4 text-lg font-semibold text-red-600 transition hover:bg-gray-100" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export const HeroBannerWithForm = (props: HeroBannerProps) => {
   const id = props.params.RenderingIdentifier;
   const { t } = useI18n();
 
@@ -104,3 +146,4 @@ export const DefaultHeroBanner = (props: HeroBannerProps) => {
 };
 
 export const Default = withDatasourceCheck()<HeroBannerProps>(DefaultHeroBanner);
+export const WithForm = withDatasourceCheck()<HeroBannerProps>(HeroBannerWithForm);

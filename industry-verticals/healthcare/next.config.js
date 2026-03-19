@@ -26,6 +26,7 @@ const nextConfig = {
   // can be served from the Next.js Image Optimization API
   // see https://nextjs.org/docs/app/api-reference/components/image#remotepatterns
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -45,6 +46,11 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: '*.sitecoresandbox.cloud',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: '**',
         port: '',
       },
     ],

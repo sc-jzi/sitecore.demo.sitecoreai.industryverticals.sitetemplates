@@ -122,7 +122,7 @@ export const Appointments = (): JSX.Element => {
               description="You don't have any scheduled appointments. Book one to continue your donation journey."
               action={{
                 label: 'Book Appointment',
-                href: '/portal/appointments/new',
+                href: '/portal/newappointment',
               }}
             />
           ) : (

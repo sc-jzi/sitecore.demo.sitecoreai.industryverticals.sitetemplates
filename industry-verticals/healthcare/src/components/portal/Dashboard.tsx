@@ -28,7 +28,7 @@ export const Dashboard = (): JSX.Element => {
           </p>
         </div>
         <Button asChild>
-          <Link href="/portal/appointments/new">
+          <Link href="/portal/NewAppointment">
             <Plus className="mr-2 h-4 w-4" />
             Book Appointment
           </Link>
@@ -76,7 +76,7 @@ export const Dashboard = (): JSX.Element => {
                   description="You don't have any appointments scheduled. Book one to continue your donation journey."
                   action={{
                     label: 'Book Appointment',
-                    href: '/portal/appointments/new',
+                    href: '/portal/NewAppointment',
                   }}
                 />
               </CardContent>

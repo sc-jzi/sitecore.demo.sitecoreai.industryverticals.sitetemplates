@@ -29,7 +29,6 @@ interface HeroBannerProps extends ComponentProps {
 
 export const DefaultHeroBanner = (props: HeroBannerProps) => {
   const id = props.params.RenderingIdentifier;
-  const { t } = useI18n();
 
   return (
     <section className={`relative pb-12 ${props?.params?.styles}`} id={id || undefined}>

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { ComponentProps } from 'react';
 import { Default as HeroBanner } from '../components/hero-banner/HeroBanner';
 import { CommonParams, CommonRendering } from './common/commonData';
-import { createImageField } from './helpers/createFields';
+import { createImageField, createLinkField, createTextField } from './helpers/createFields';
 
 type StoryProps = ComponentProps<typeof HeroBanner>;
 
@@ -31,9 +31,12 @@ const baseRendering = {
 // Mock fields for the HeroBanner component
 const createHeroBannerFields = () => ({
   Image: createImageField('placeholder'),
+  Title: createTextField('Sample Title'),
+  Description: createTextField('Sample Text'),
+  CtaLink: createLinkField(),
 });
 
-export const Default: Story = {
+export const HeroBannerWithForm: Story = {
   render: () => {
     const fields = createHeroBannerFields();
 

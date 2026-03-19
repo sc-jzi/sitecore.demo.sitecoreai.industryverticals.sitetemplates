@@ -7,18 +7,18 @@ import {
 } from '@sitecore-content-sdk/nextjs/codegen';
 // end of built-in imports
 
-import { Link, Text, useSitecore, RichText, withDatasourceCheck, Placeholder, NextImage, CdpHelper } from '@sitecore-content-sdk/nextjs';
+import { Link, Text, useSitecore, RichText, withDatasourceCheck, Placeholder, NextImage, CdpHelper, DateField } from '@sitecore-content-sdk/nextjs';
 import { useMemo, useState, useEffect, useId } from 'react';
 import React from 'react';
 import { useTheme } from 'next-themes';
 import Head from 'next/head';
-import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faInstagram, faTwitter, faFacebookF, faLinkedinIn, faPinterestP } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import BlobAccent from 'src/assets/shapes/BlobAccent';
 import CurvedClip from 'src/assets/shapes/CurvedClip';
 import { CommonStyles, FeatureStyles } from '@/types/styleFlags';
 import BlobAccent_ff719d36323bb13e49440edf42521225aa8ecaa1 from '@/assets/shapes/BlobAccent';
-import { faArrowRight, faBars, faChevronDown, faChevronUp, faTimes, faEnvelope, faPhone, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faEnvelope, faBars, faChevronDown, faChevronUp, faTimes, faPhone, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import BlobAccent_c450f25c63b00a2e370305e155038c473dbb9c49 from 'src/components/non-sitecore/BlobAccent';
 import CurvedClip_6089ba18dc7000eae1dc64c54178a20f58206b41 from 'src/components/non-sitecore/CurvedClip';
 import { useRouter } from 'next/navigation';
@@ -31,7 +31,7 @@ import { Field, FieldGroup, FieldLabel } from '@/shadcn/components/ui/field';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shadcn/components/ui/select';
 import { Spinner } from '@/shadcn/components/ui/spinner';
 import { Alert, AlertDescription } from '@/shadcn/components/ui/alert';
-import { AlertCircle, ArrowLeft, ArrowRight, Check, Droplets, Calendar, MapPin, Clock, Plus, User, History, Phone, Search, Heart, Activity, Trophy } from 'lucide-react';
+import { AlertCircle, ArrowLeft, ArrowRight, Check, Droplets, Calendar, MapPin, Clock, Plus, User, History, Share2, Phone, Search, Heart, Activity, Trophy } from 'lucide-react';
 import { useAppointments, useDonationStats } from '@/lib/appointments-context';
 import { LocationSelector } from 'src/components/non-sitecore/location-selector';
 import { DateTimeSelector } from 'src/components/non-sitecore/date-time-selector';
@@ -45,11 +45,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shadcn/components/ui
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/shadcn/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/shadcn/components/ui/alert-dialog';
 import { getLocationById, getAllLocations } from '@/lib/mock-data';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui/dropdown-menu';
+import { useI18n } from 'next-localization';
+import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, PinterestIcon, PinterestShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 import { cn } from '@/lib/utils';
 import { Progress } from '@/shadcn/components/ui/progress';
 import { Calendar as Calendar_74b73395a0f1da9412ffd8ae923ab5a11b90e740 } from '@/shadcn/components/ui/calendar';
 import { getLinkField, getNavigationText } from '@/helpers/navHelpers';
-import { useI18n } from 'next-localization';
 import HeroClip from '@/assets/shapes/HeroClip';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Keyboard, Navigation, Pagination } from 'swiper/modules';
@@ -60,6 +62,8 @@ import nextConfig from 'next.config';
 import { pageView } from '@sitecore-cloudsdk/events/browser';
 import config from 'sitecore.config';
 import { extractMediaUrl } from '@/helpers/extractMediaUrl';
+import { newsDateFormatter } from 'src/helpers/dateHelper';
+import SocialShare from 'src/components/non-sitecore/SocialShare';
 
 const importMap = [
   {
@@ -73,6 +77,7 @@ const importMap = [
       { name: 'Placeholder', value: Placeholder },
       { name: 'NextImage', value: NextImage },
       { name: 'CdpHelper', value: CdpHelper },
+      { name: 'DateField', value: DateField },
     ]
   },
   {
@@ -103,6 +108,9 @@ const importMap = [
       { name: 'faFacebook', value: faFacebook },
       { name: 'faInstagram', value: faInstagram },
       { name: 'faTwitter', value: faTwitter },
+      { name: 'faFacebookF', value: faFacebookF },
+      { name: 'faLinkedinIn', value: faLinkedinIn },
+      { name: 'faPinterestP', value: faPinterestP },
     ]
   },
   {
@@ -140,11 +148,11 @@ const importMap = [
     module: '@fortawesome/free-solid-svg-icons',
     exports: [
       { name: 'faArrowRight', value: faArrowRight },
+      { name: 'faEnvelope', value: faEnvelope },
       { name: 'faBars', value: faBars },
       { name: 'faChevronDown', value: faChevronDown },
       { name: 'faChevronUp', value: faChevronUp },
       { name: 'faTimes', value: faTimes },
-      { name: 'faEnvelope', value: faEnvelope },
       { name: 'faPhone', value: faPhone },
       { name: 'faArrowLeft', value: faArrowLeft },
     ]
@@ -248,6 +256,7 @@ const importMap = [
       { name: 'Plus', value: Plus },
       { name: 'User', value: User },
       { name: 'History', value: History },
+      { name: 'Share2', value: Share2 },
       { name: 'Phone', value: Phone },
       { name: 'Search', value: Search },
       { name: 'Heart', value: Heart },
@@ -352,6 +361,36 @@ const importMap = [
     ]
   },
   {
+    module: '@/shadcn/components/ui/dropdown-menu',
+    exports: [
+      { name: 'DropdownMenu', value: DropdownMenu },
+      { name: 'DropdownMenuContent', value: DropdownMenuContent },
+      { name: 'DropdownMenuItem', value: DropdownMenuItem },
+      { name: 'DropdownMenuTrigger', value: DropdownMenuTrigger },
+    ]
+  },
+  {
+    module: 'next-localization',
+    exports: [
+      { name: 'useI18n', value: useI18n },
+    ]
+  },
+  {
+    module: 'react-share',
+    exports: [
+      { name: 'EmailIcon', value: EmailIcon },
+      { name: 'EmailShareButton', value: EmailShareButton },
+      { name: 'FacebookIcon', value: FacebookIcon },
+      { name: 'FacebookShareButton', value: FacebookShareButton },
+      { name: 'LinkedinIcon', value: LinkedinIcon },
+      { name: 'LinkedinShareButton', value: LinkedinShareButton },
+      { name: 'PinterestIcon', value: PinterestIcon },
+      { name: 'PinterestShareButton', value: PinterestShareButton },
+      { name: 'TwitterIcon', value: TwitterIcon },
+      { name: 'TwitterShareButton', value: TwitterShareButton },
+    ]
+  },
+  {
     module: '@/lib/utils',
     exports: [
       { name: 'cn', value: cn },
@@ -374,12 +413,6 @@ const importMap = [
     exports: [
       { name: 'getLinkField', value: getLinkField },
       { name: 'getNavigationText', value: getNavigationText },
-    ]
-  },
-  {
-    module: 'next-localization',
-    exports: [
-      { name: 'useI18n', value: useI18n },
     ]
   },
   {
@@ -443,6 +476,18 @@ const importMap = [
     module: '@/helpers/extractMediaUrl',
     exports: [
       { name: 'extractMediaUrl', value: extractMediaUrl },
+    ]
+  },
+  {
+    module: 'src/helpers/dateHelper',
+    exports: [
+      { name: 'newsDateFormatter', value: newsDateFormatter },
+    ]
+  },
+  {
+    module: 'src/components/non-sitecore/SocialShare',
+    exports: [
+      { name: 'default', value: SocialShare },
     ]
   }
 ] as ImportEntry[];

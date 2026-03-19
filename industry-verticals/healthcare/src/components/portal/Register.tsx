@@ -95,7 +95,7 @@ export const Register = (): JSX.Element => {
       })
 
       if (result.success) {
-        router.push('/portal')
+        router.push('/portal/my-account')
       } else {
         setError(result.error || 'Registration failed')
       }
@@ -115,7 +115,7 @@ export const Register = (): JSX.Element => {
   }
 
   if (isAuthenticated) {
-    return <div>Already logged in</div>
+    return <div>Account created. Please wait while we redirect you.</div>
   }
 
   return (

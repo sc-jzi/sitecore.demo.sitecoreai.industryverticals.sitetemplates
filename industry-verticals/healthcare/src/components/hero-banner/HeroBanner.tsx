@@ -20,7 +20,7 @@ interface Fields {
   Image: ImageField;
   Title: Field<string>;
   Description: Field<string>;
-  CtaLink: LinkField
+  CtaLink: LinkField;
 }
 
 interface HeroBannerProps extends ComponentProps {

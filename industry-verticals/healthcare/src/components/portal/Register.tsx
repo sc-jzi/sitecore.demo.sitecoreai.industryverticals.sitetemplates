@@ -52,7 +52,7 @@ export const Register = (): JSX.Element => {
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
-      router.push('/portal')
+      router.push('Portal/My-Account')
     }
   }, [isAuthenticated, isLoading, router])
 
